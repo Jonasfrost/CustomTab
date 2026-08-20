@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>New Tab Dashboard</title>
+  <link rel="stylesheet" href="newtab.css">
+</head>
+<body>
+  <div class="dashboard-container">
+    <!-- Time & Greeting -->
+    <div class="header-section">
+      <h1 id="clock">00:00:00</h1>
+      <p id="greeting">Hello!</p>
+    </div>
+
+    <!-- Widgets Grid -->
+    <div class="widgets-grid">
+      <!-- Weather Widget -->
+      <div class="card" id="weather-card">
+        <h3>Weather</h3>
+        <p id="weather-info">Loading weather...</p>
+      </div>
+
+      <!-- To-Do List Widget -->
+      <div class="card" id="todo-card">
+        <h3>Productivity Tasks</h3>
+        <div class="todo-input-group">
+          <input type="text" id="task-input" placeholder="Add a new task...">
+          <button id="add-task-btn">Add</button>
+        </div>
+        <ul id="task-list"></ul>
+      </div>
+    </div>
+  </div>
+
+  <script src="newtab.js"></script>
+</body>
+</html>

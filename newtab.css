@@ -1,0 +1,101 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #0f172a;
+    color: #f8fafc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.dashboard-container {
+    text-align: center;
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+#clock {
+    font-size: 4rem;
+    margin: 0;
+    font-weight: 300;
+    letter-spacing: 2px;
+}
+
+#greeting {
+    font-size: 1.2rem;
+    color: #94a3b8;
+    margin: 5px 0 0 0;
+}
+
+.widgets-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.card {
+    background: #1e293b;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+    text-align: left;
+}
+
+    .card h3 {
+        margin-top: 0;
+        font-size: 1rem;
+        color: #38bdf8;
+        border-bottom: 1px solid #334155;
+        padding-bottom: 8px;
+    }
+
+.todo-input-group {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+    .todo-input-group input {
+        flex: 1;
+        background: #0f172a;
+        border: 1px solid #475569;
+        border-radius: 4px;
+        padding: 6px;
+        color: white;
+    }
+
+    .todo-input-group button {
+        background: #0284c7;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        padding: 6px 12px;
+        cursor: pointer;
+    }
+
+        .todo-input-group button:hover {
+            background: #0ea5e9;
+        }
+
+#task-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 120px;
+    overflow-y: auto;
+}
+
+    #task-list li {
+        background: #0f172a;
+        padding: 6px 8px;
+        margin-bottom: 4px;
+        border-radius: 4px;
+        font-size: 0.9rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
