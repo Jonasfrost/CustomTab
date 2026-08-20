@@ -53,6 +53,39 @@ body {
         padding-bottom: 8px;
     }
 
+.todo-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #334155;
+    padding-bottom: 8px;
+    margin-bottom: 10px;
+}
+
+    .todo-header h3 {
+        margin: 0;
+        border: none;
+        padding: 0;
+    }
+
+#toggle-tasks-btn {
+    background: #334155;
+    color: #f8fafc;
+    border: none;
+    border-radius: 4px;
+    padding: 4px 8px;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+    #toggle-tasks-btn:hover {
+        background: #475569;
+    }
+
+.task-content.hidden {
+    display: none;
+}
+
 .todo-input-group {
     display: flex;
     gap: 5px;

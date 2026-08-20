@@ -13,8 +13,12 @@ function initClock() {
         clockEl.innerText = now.toLocaleTimeString();
 
         const hours = now.getHours();
-        if (hours < 12) greetingEl.innerText = "Morning";
-        else if (hours < 18) greetingEl.innerText = "Afternoon";
+        if (hours <= 11) greetingEl.innerText = "Frokost";
+        else if (hours <= 12) greetingEl.innerText = "googoogaga";
+        else if (hours <= 13) greetingEl.innerText = "nr2 drik";
+        else if (hours <= 14) greetingEl.innerText = "Snart fri";
+        else if (hours <= 15) greetingEl.innerText = "Gå hjem hvorfor er du har stadigvæk";
+        else if (hours <= 18) greetingEl.innerText = "Damn";
         else greetingEl.innertext = "Evening";
     }
 
@@ -35,15 +39,18 @@ async function fetchWeather() {
 }
 
 function initTodo() {
-    const input = document.getElementById("task-input")
-    const btn = document.getElementById("add-task-btn")
-    const list = document.getElementById("task-list")
+    const input = document.getElementById("task-input");
+    const addBtn = document.getElementById("add-task-btn");
+    const openBtn = document.getElementById("open-task-btn");
+    const taskModal = document.getElementById("task-modal");
+    const list = document.getElementById("task-list");
 
     chrome.storage.local.get(["tasks"], (result) => {
-        const tasks = result.task || [];
+        const tasks = result.tasks || [];
         renderTasks(tasks);
     });
-    btn.addEventListener("click", () => {
+
+    addBtn.addEventListener("click", () => {
         const text = input.value.trim();
         if (!text) return;
 
@@ -52,23 +59,28 @@ function initTodo() {
             tasks.push(text);
             chrome.storage.local.set({ tasks }, () => {
                 renderTasks(tasks);
-                input.value = ";"
+                input.value = "";
             });
         });
+    });
+
+    openBtn.addEventListener("click", () => {
+        taskModal.classList.toggle("active");
     });
 
     function renderTasks(tasks) {
         list.innerHTML = "";
         tasks.forEach((task, index) => {
-            const li= document.createElement("li");
-            li.innerHTML = `<span>${task}</span> <button style="background:none; border:none; color:ef4444; cursor:pointer;">&times;</button>`;
+            const listItem = document.createElement("li");
+            listItem.innerHTML = `<span>${task}</span> <button style="background:none; border:none; color:#ef4444; cursor:pointer;">&times;</button>`;
 
-            li.querySelector("button").addEventListener("click", () => {
+            listItem.querySelector("button").addEventListener("click", () => {
                 tasks.splice(index, 1);
-                chrome.storage.local.set({ task }, () => renderTasks(tasks));
+                chrome.storage.local.set({ tasks }, () => renderTasks(tasks));
             });
-            list.appendChild(li);
-        })
+
+            list.appendChild(listItem);
+        });
     }
 }
 
