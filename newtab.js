@@ -4,7 +4,6 @@ document.addEventListener("DOMContentLoaded", () => {
     initTodo();
 });
 
- 
 function initClock() {
     const startTime = new Date('2008-09-24T00:00:00');
     const greetingEl = document.getElementById("greeting");
@@ -26,7 +25,7 @@ function initClock() {
         const year = Math.floor(day / 365.25);
 
         if (timeSinceEl) {
-            timeSinceEl.innerText = `${year} År,  ${day} Dage,  ${hour}, Timer  ${min}, Minuter  ${sec}, Sekunder `;
+            timeSinceEl.innerText = `${year} År,  ${day} Dage,  ${hour} Timer,  ${min} Minuter,  ${sec} Sekunder `;
         }
 
         const hours = now.getHours();
@@ -38,7 +37,6 @@ function initClock() {
         else if (hours <= 18) greetingEl.innerText = "Damn";
         else greetingEl.innerText = "idk";
     }
-
     update();
     setInterval(update, 1000);
 }
@@ -51,7 +49,7 @@ async function fetchWeather() {
         const res = await fetch("https://api.open-meteo.com/v1/forecast?latitude=55.6761&longitude=12.5683&current_weather=true");
         const data = await res.json();
         const temp = data.current_weather.temperature;
-        weatherEl.innerHTML = `Copenhagen<br><strong>${temp}°C</strong>`;
+        weatherEl.innerHTML = `Copenhagen<br><strong>${temp - 1.7}°C</strong>`;
     } catch (err) {
         weatherEl.innerText = "Could not load weather.";
     }
@@ -102,5 +100,3 @@ function initTodo() {
         });
     }
 }
-
-
