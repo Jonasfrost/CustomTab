@@ -4,27 +4,46 @@ document.addEventListener("DOMContentLoaded", () => {
     initTodo();
 });
 
+ 
 function initClock() {
+    const startTime = new Date('2008-09-24T00:00:00');
+    const greetingEl = document.getElementById("greeting");
     const clockEl = document.getElementById("clock");
-    const greetingEl = document.getElementById("greeting")
+    const timeSinceEl = document.getElementById("timeSince");
 
     function update() {
         const now = new Date();
-        clockEl.innerText = now.toLocaleTimeString();
+
+        if (clockEl) {
+            clockEl.innerText = now.toLocaleTimeString();
+        }
+
+        const forskelMs = now - startTime;
+        const sec = Math.floor(forskelMs / 1000);
+        const min = Math.floor(sec / 60);
+        const hour = Math.floor(min / 60);
+        const day = Math.floor(hour / 24);
+        const year = Math.floor(day / 365.25);
+
+        if (timeSinceEl) {
+            timeSinceEl.innerText = `${year} År,  ${day} Dage,  ${hour}, Timer  ${min}, Minuter  ${sec}, Sekunder `;
+        }
 
         const hours = now.getHours();
         if (hours <= 11) greetingEl.innerText = "Frokost";
         else if (hours <= 12) greetingEl.innerText = "googoogaga";
         else if (hours <= 13) greetingEl.innerText = "nr2 drik";
         else if (hours <= 14) greetingEl.innerText = "Snart fri";
-        else if (hours <= 15) greetingEl.innerText = "Gå hjem hvorfor er du har stadigvæk";
+        else if (hours <= 15) greetingEl.innerText = "Gå hjem hvorfor er du her stadigvæk";
         else if (hours <= 18) greetingEl.innerText = "Damn";
-        else greetingEl.innertext = "Evening";
+        else greetingEl.innerText = "idk";
     }
 
     update();
     setInterval(update, 1000);
 }
+
+initClock();
 
 async function fetchWeather() {
     const weatherEl = document.getElementById("weather-info")

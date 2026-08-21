@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Custom Productivity Dashboard",
+  "name": "Custom Tab",
   "version": "1.0",
   "description": "A feature-rich New Tab replacement dashboard.",
   "chrome_url_overrides": {

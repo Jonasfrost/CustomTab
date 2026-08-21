@@ -6,10 +6,16 @@
   <link rel="stylesheet" href="newtab.css">
 </head>
 <body>
+  <div class="Simon-header">
+    <h1 id="Simon">Simon</h1>
+  </div>
+
   <div class="dashboard-container">
     <!-- Time & Greeting -->
     <div class="header-section">
       <h1 id="clock">00:00:00</h1>
+      <!-- Her er tilføjet et element til din tidsberegner -->
+      <p id="timeSince">Loader tid...</p>
       <p id="greeting">Hello!</p>
     </div>
 
@@ -25,9 +31,8 @@
       <div class="card" id="todo-card">
         <h3>Productivity Tasks</h3>
         <div class="todo-input-group">
-          <input type="text" id="task-input" placeholder="Add a new task...">
+          <input type="text" id="task-input" placeholder="Add a new task">
           <button id="add-task-btn">Add</button>
-	  
         </div>
         <ul id="task-list"></ul>
       </div>
