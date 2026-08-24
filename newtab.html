@@ -15,9 +15,13 @@
     <div class="header-section">
       <h1 id="clock">00:00:00</h1>
       <!-- Her er tilføjet et element til din tidsberegner -->
-      <p id="timeSince">Loader tid...</p>
       <p id="greeting">Hello!</p>
     </div>
+
+  <div class="card" id="simon-age-card">
+    <h3>Simons alder</h3>
+    <p id="simon-age"></p>
+  </div>
 
     <!-- Widgets Grid -->
     <div class="widgets-grid">
@@ -37,7 +41,23 @@
         <ul id="task-list"></ul>
       </div>
     </div>
+
+    <div class="card" id="idk">
+      <h3>IDK</h3>
+      <p id="idk-card"></p>
+    </div>
   </div>
+
+  <div class="container">
+    <form action="https://www.google.com/search" 
+     method="get" class="searchBar">
+      <input type="text" placeholder="Search..." id="Search" onkeyup="SearchBox()">
+      <div class="search" tabindex="0"></div>
+    </form>
+  </div>
+
+
+    
 
   <script src="newtab.js"></script>
 </body>

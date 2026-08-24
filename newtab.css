@@ -5,35 +5,22 @@ body {
     background-color: #0f172a;
     color: #f8fafc;
     display: flex;
-    justify-content: center;
+    justify-content: left;
     align-items: center;
     height: 100vh;
 }
 
 .dashboard-container {
     text-align: center;
-    width: 600px;
+    width: 350px;
     display: flex;
     flex-direction: column;
     gap: 30px;
 }
 
-#clock {
-    font-size: 4rem;
-    margin: 0;
-    font-weight: 300;
-    letter-spacing: 2px;
-}
-
-#greeting {
-    font-size: 1.2rem;
-    color: #94a3b8;
-    margin: 5px 0 0 0;
-}
-
 .widgets-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
     gap: 20px;
 }
 
@@ -53,37 +40,77 @@ body {
         padding-bottom: 8px;
     }
 
-.todo-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #334155;
-    padding-bottom: 8px;
-    margin-bottom: 10px;
+@import url('https://fonts.googleapis.com/css?family=Inconsolata:700');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-    .todo-header h3 {
-        margin: 0;
+
+
+.container {
+    float: right;
+    position: fixed;
+    top: 50%;
+    right: 48.5%;
+    width: 300px;
+    height: 100px;
+    align-content: center;
+
+    input {
+        font-family: 'Inconsolata', monospace;
+        position: fixed;
+        margin: auto;
+        top: 10%;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 50px;
+        height: 50px;
+        outline: none;
         border: none;
-        padding: 0;
+        background: #0284c7;
+        color: white;
+        text-shadow: 0 0 10px #334155;
+        padding: 0 80px 0 20px;
+        border-radius: 30px;
+        box-shadow: 0 0 25px 0 #0284c7, 0 20px 25px 0 rgba(0, 0, 0, 0.2);
+        transition: all 1s;
+        opacity: 80;
+        z-index: 4;
+        font-weight: bolder;
+        letter-spacing: 0.1em;
+
+        &:hover {
+            cursor: pointer;
+        }
+
+        &:focus {
+            width: 300px;
+            opacity: 1;
+            cursor: text;
+            left: 0px;
+        }
+
+            &:focus ~ .search {
+                background: #151515;
+                z-index: 6;
+
+                &::before {
+                    top: 0;
+                    left: 0;
+                    width: 25px;
+                }
+            }
+
+        &::placeholder {
+            color: white;
+            opacity: 0.5;
+            font-weight: bolder;
+        }
     }
-
-#toggle-tasks-btn {
-    background: #334155;
-    color: #f8fafc;
-    border: none;
-    border-radius: 4px;
-    padding: 4px 8px;
-    cursor: pointer;
-    font-size: 0.8rem;
-}
-
-    #toggle-tasks-btn:hover {
-        background: #475569;
-    }
-
-.task-content.hidden {
-    display: none;
 }
 
 .todo-input-group {
@@ -133,13 +160,41 @@ body {
         align-items: center;
     }
 
-#Simon{
+#Simon {
     color: goldenrod;
     margin: 0;
-    position: center;
     text-align: center;
     position: fixed;
     top: 16%;
     right: 39%;
     font-size: 140px;
+}
+
+#clock {
+    font-size: 4rem;
+    margin: 0;
+    font-weight: 300;
+    letter-spacing: 2px;
+    position: fixed;
+    top: 35%;
+    right: 44%;
+}
+
+#greeting {
+    font-size: 1.2rem;
+    color: #94a3b8;
+    margin: 5px 0 0 0;
+    position: fixed;
+    right: 49%;
+    top: 43%;
+}
+
+#simon-age {
+    font-size: 1.2rem;
+    margin-top: 10px;
+}
+
+#idk-card {
+    font-size: 1.2rem;
+    margin-top: 10px;
 }
