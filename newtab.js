@@ -101,3 +101,41 @@ function initTodo() {
         });
     }
 }
+document.addEventListener("DOMContentLoaded", () => {
+    console.log("DOM er loaded - søge-script starter!");
+
+    const searchInput = document.getElementById("Search");
+    const searchBtn = document.querySelector(".container .search");
+
+    if (!searchInput) {
+        console.error("Kan ikke finde input-feltet med ID 'Search'!");
+        return;
+    }
+
+    function performSearch() {
+        const query = searchInput.value.trim();
+        console.log("Forsøger at søge efter:", query);
+
+        if (query !== "") {
+            const url = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+            window.location.href = url;
+        } else {
+            console.log("Feltet er tomt, søger ikke.");
+        }
+    }
+
+    searchInput.addEventListener("keydown", (event) => {
+        console.label = "Tast trykket: " + event.key;
+        if (event.key === "Enter") {
+            event.preventDefault();
+            performSearch();
+        }
+    });
+
+    if (searchBtn) {
+        searchBtn.addEventListener("click", () => {
+            console.log("Klikket på søge-knap (div)");
+            performSearch();
+        });
+    }
+});
