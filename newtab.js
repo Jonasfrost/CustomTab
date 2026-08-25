@@ -35,13 +35,12 @@ function initClock() {
         }
 
         const hours = now.getHours();
-        if (hours <= 11) greetingEl.innerText = "Frokost";
+        if (hours >= 11) greetingEl.innerText = "Frokost";
         else if (hours <= 12) greetingEl.innerText = "googoogaga";
         else if (hours <= 13) greetingEl.innerText = "nr2 drik";
         else if (hours <= 14) greetingEl.innerText = "Snart fri";
         else if (hours <= 15) greetingEl.innerText = "Gå hjem hvorfor er du her stadigvæk";
         else if (hours <= 18) greetingEl.innerText = "Damn";
-        else greetingEl.innerText = "idk";
     }
 
     update();
@@ -139,3 +138,69 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
+function initCalendar() {
+    const monthYearEl = document.getElementById("month-year");
+    const daysContainer = document.getElementById("days-container");
+    const prevBtn = document.getElementById("prev-month");
+    const nextBtn = document.getElementById("next-month");
+
+    let currentDate = new Date();
+
+    const months = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    ];
+
+    function renderCalendar() {
+        const year = currentDate.getFullYear();
+        const month = currentDate.getMonth();
+
+        monthYearEl.innerText = `${months[month]} ${year}`;
+
+        daysContainer.innerHTML = "";
+
+        let firstDayIndex = new Date(year, month, 1).getDay();
+        firstDayIndex = (firstDayIndex === 0) ? 6 : firstDayIndex - 1;
+
+        const totalDays = new Date(year, month + 1, 0).getDate();
+        const prevMonthDays = new Date(year, month, 0).getDate();
+
+        for (let i = firstDayIndex; i > 0; i--) {
+            const dayDiv = document.createElement("div");
+            dayDiv.classList.add("padding-day");
+            dayDiv.innerText = prevMonthDays - i + 1;
+            daysContainer.appendChild(dayDiv);
+        }
+
+        const today = new Date();
+        for (let i = 1; i <= totalDays; i++) {
+            const dayDiv = document.createElement("div");
+            dayDiv.classList.add("day");
+            dayDiv.innerText = i;
+
+            if (
+                i === today.getDate() &&
+                month === today.getMonth() &&
+                year === today.getFullYear()
+            ) {
+                dayDiv.classList.add("today");
+            }
+
+            daysContainer.appendChild(dayDiv);
+        }
+    }
+
+    prevBtn.addEventListener("click", () => {
+        currentDate.setMonth(currentDate.getMonth() - 1);
+        renderCalendar();
+    });
+
+    nextBtn.addEventListener("click", () => {
+        currentDate.setMonth(currentDate.getMonth() + 1);
+        renderCalendar();
+    });
+
+    renderCalendar();
+}
+
+initCalendar();

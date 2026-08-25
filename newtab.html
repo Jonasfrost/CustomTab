@@ -42,11 +42,22 @@
       </div>
     </div>
 
-    <div class="card" id="idk">
-      <h3>IDK</h3>
-      <p id="idk-card"></p>
+<div class="card calendar-card">
+    <!-- Top-del med måned og pile på siderne -->
+    <div class="calendar-header">
+        <button id="prev-month">&#10094;</button>
+        <h2 id="month-year">MONTH YEAR</h2>
+        <button id="next-month">&#10095;</button>
     </div>
-  </div>
+
+    <!-- Ugedage -->
+    <div class="weekdays">
+        <div>Mo</div><div>Tu</div><div>We</div><div>Th</div><div>Fr</div><div>Sa</div><div>Su</div>
+    </div>
+
+    <!-- Datoer -->
+    <div id="days-container" class="days-grid"></div>
+</div>
 
 <div class="container">
     <input type="text" placeholder="Search..." id="Search">
