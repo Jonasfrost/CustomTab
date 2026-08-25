@@ -40,7 +40,6 @@ body {
         padding-bottom: 8px;
     }
 
-
 @import url('https://fonts.googleapis.com/css?family=Inconsolata:700');
 
 * {
@@ -62,7 +61,7 @@ body {
         font-family: 'Inconsolata', monospace;
         position: fixed;
         margin: auto;
-        top: 4%;
+        top: 2%;
         right: 4%;
         bottom: 0;
         left: 0;
@@ -184,7 +183,7 @@ body {
     color: #94a3b8;
     margin: 5px 0 0 0;
     position: fixed;
-    right: 48%;
+    right: 50%;
     top: 43%;
 }
 
