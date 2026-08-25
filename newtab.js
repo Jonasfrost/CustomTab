@@ -35,12 +35,23 @@ function initClock() {
         }
 
         const hours = now.getHours();
-        if (hours >= 11) greetingEl.innerText = "Frokost";
-        else if (hours <= 12) greetingEl.innerText = "googoogaga";
-        else if (hours <= 13) greetingEl.innerText = "nr2 drik";
-        else if (hours <= 14) greetingEl.innerText = "Snart fri";
-        else if (hours <= 15) greetingEl.innerText = "Gå hjem hvorfor er du her stadigvæk";
-        else if (hours <= 18) greetingEl.innerText = "Damn";
+
+        const greetings = [
+            { hour: 18, text: "Damn" },
+            { hour: 15, text: "Gå hjem" },
+            { hour: 14, text: "Snart fri" },
+            { hour: 13, text: "nr2 drik" },
+            { hour: 12, text: "back to work :(" },
+            { hour: 11, text: "frokost" },
+            { hour: 10, text: "googoogaga" },
+            { hour: 9, text: "Første monster færdig" },
+            { hour: 8, text: "God morgen" }
+        ];
+
+        const currentGreeting = greetings.find(g => hours >= g.hour);
+
+        greetingEl.innerText = currentGreeting ? currentGreeting.text : "";
+
     }
 
     update();
