@@ -31,7 +31,7 @@ function initClock() {
         let day = totalDage % 365; 
 
         if (timeSinceEl) {
-            timeSinceEl.innerText = `${year} År, ${day} Dage, ${timer} Timer, ${min} Minutter, ${sec} Sekunder`;
+            timeSinceEl.innerText = `${year} År, ${day} Dage, ${timer} Timer, ${min} Minuter, ${sec} Sekunder`;
         }
 
         const hours = now.getHours();
