@@ -293,7 +293,6 @@ body {
     .modal.hidden {
         display: none;
     }
-
 .modal-content {
     background: #1e293b;
     color: #f8fafc;

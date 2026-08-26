@@ -128,7 +128,6 @@ function initSearch() {
         console.error("Kan ikke finde input feltet med ID 'Search'!");
         return;
     }
-
     function performSearch() {
         const query = searchInput.value.trim();
 
@@ -151,7 +150,6 @@ function initSearch() {
         });
     }
 }
-
 function initCalendar() {
     const monthYearEl = document.getElementById("month-year");
     const daysContainer = document.getElementById("days-container");
