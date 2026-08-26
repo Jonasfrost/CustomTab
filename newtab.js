@@ -33,25 +33,6 @@ function initClock() {
         if (timeSinceEl) {
             timeSinceEl.innerText = `${year} År, ${day} Dage, ${timer} Timer, ${min} Minuter, ${sec} Sekunder`;
         }
-
-        const hours = now.getHours();
-
-        const greetings = [
-            { hour: 18, text: "Damn" },
-            { hour: 15, text: "Gå hjem" },
-            { hour: 14, text: "Snart fri" },
-            { hour: 13, text: "nr2 drik" },
-            { hour: 12, text: "back to work :(" },
-            { hour: 11, text: "frokost" },
-            { hour: 10, text: "googoogaga" },
-            { hour: 9, text: "Første monster færdig" },
-            { hour: 8, text: "God morgen" }
-        ];
-
-        const currentGreeting = greetings.find(g => hours >= g.hour);
-
-        greetingEl.innerText = currentGreeting ? currentGreeting.text : "";
-
     }
 
     update();
@@ -59,6 +40,19 @@ function initClock() {
 }
 
 initClock();
+
+function checkTodayGreeting() {
+    const today = new Date();
+    const todayKey = `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`;
+    const savedNote = localStorage.getItem(todayKey);
+    const greetingEl = document.getElementById("greeting");
+
+    if (savedNote && greetingEl) {
+        greetingEl.innerText = savedNote;
+    }
+}
+
+checkTodayGreeting();
 
 async function fetchWeather() {
     const weatherEl = document.getElementById("weather-info")
@@ -117,7 +111,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const searchBtn = document.querySelector(".container .search");
 
     if (!searchInput) {
-        console.error("Kan ikke finde input-feltet med ID 'Search'!");
+        console.error("Kan ikke finde input feltet med ID 'Search'!");
         return;
     }
 
@@ -151,7 +145,15 @@ function initCalendar() {
     const prevBtn = document.getElementById("prev-month");
     const nextBtn = document.getElementById("next-month");
 
+    const modal = document.getElementById("day-modal");
+    const modalDate = document.getElementById("modal-date");
+    const modalNoteInput = document.getElementById("modal-note-input");
+    const saveNoteBtn = document.getElementById("save-note-btn");
+    const closeModal = document.getElementById("close-modal");
+    const greetingEl = document.getElementById("greeting"); 
+
     let currentDate = new Date();
+    let selectedDateKey = ""; 
 
     const months = [
         "January", "February", "March", "April", "May", "June",
@@ -163,7 +165,6 @@ function initCalendar() {
         const month = currentDate.getMonth();
 
         monthYearEl.innerText = `${months[month]} ${year}`;
-
         daysContainer.innerHTML = "";
 
         let firstDayIndex = new Date(year, month, 1).getDay();
@@ -185,17 +186,50 @@ function initCalendar() {
             dayDiv.classList.add("day");
             dayDiv.innerText = i;
 
-            if (
-                i === today.getDate() &&
-                month === today.getMonth() &&
-                year === today.getFullYear()
-            ) {
+            const dateKey = `${year}-${month}-${i}`;
+
+            if (localStorage.getItem(dateKey)) {
+                dayDiv.classList.add("has-note");
+            }
+
+            if (i === today.getDate() && month === today.getMonth() && year === today.getFullYear()) {
                 dayDiv.classList.add("today");
             }
+
+            dayDiv.addEventListener("click", () => {
+                selectedDateKey = dateKey;
+                modalDate.innerText = `${i} ${months[month]} ${year}`;
+
+                modalNoteInput.value = localStorage.getItem(dateKey) || "";
+
+                modal.classList.remove("hidden");
+            });
 
             daysContainer.appendChild(dayDiv);
         }
     }
+
+    saveNoteBtn.addEventListener("click", () => {
+        const noteText = modalNoteInput.value.trim();
+
+        if (noteText !== "") {
+            localStorage.setItem(selectedDateKey, noteText);
+
+            const today = new Date();
+            const todayKey = `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`;
+            if (selectedDateKey === todayKey) {
+                greetingEl.innerText = noteText;
+            }
+        } else {
+            localStorage.removeItem(selectedDateKey);
+        }
+
+        modal.classList.add("hidden");
+        renderCalendar(); 
+    });
+
+    closeModal.addEventListener("click", () => modal.classList.add("hidden"));
+    window.addEventListener("click", (e) => { if (e.target === modal) modal.classList.add("hidden"); });
 
     prevBtn.addEventListener("click", () => {
         currentDate.setMonth(currentDate.getMonth() - 1);
