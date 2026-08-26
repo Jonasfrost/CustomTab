@@ -1,12 +1,16 @@
 {
   "manifest_version": 3,
-  "name": "Custom Tab",
+  "name": "New Tab Dashboard",
   "version": "1.0",
-  "description": "hihi",
+  "description": "Et personligt dashboard med ur, vejr, noter og kalender.",
   "chrome_url_overrides": {
-    "newtab": "newtab.html"
+    "newtab": "index.html"
   },
   "permissions": [
-    "storage"
+    "storage",
+    "unlimitedStorage"
+  ],
+  "host_permissions": [
+    "https://api.openweathermap.org/*"
   ]
 }

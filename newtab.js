@@ -1,7 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
     initClock();
-    fetchWeather();
+    getWeather();
     initTodo();
+    checkTodayGreeting();
+    initSearch();
+    initCalendar();
 });
 
 function initClock() {
@@ -38,8 +41,6 @@ function initClock() {
     setInterval(update, 1000);
 }
 
-initClock();
-
 function checkTodayGreeting() {
     const today = new Date();
     const todayKey = `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`;
@@ -51,17 +52,29 @@ function checkTodayGreeting() {
     }
 }
 
-checkTodayGreeting();
+async function getWeather() {
+    const apiKey = "deabdc53f2d8deb9ea8839b3bd9d7a11"; 
+    const city = "Copenhagen";
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
 
-async function fetchWeather() {
-    const weatherEl = document.getElementById("weather-info")
     try {
-        const res = await fetch("https://api.open-meteo.com/v1/forecast?latitude=55.6761&longitude=12.5683&current_weather=true");
-        const data = await res.json();
-        const temp = Math.round(data.current_weather.temperature);
-        weatherEl.innerHTML = `Copenhagen<br><strong>${temp}°C</strong>`;
-    } catch (err) {
-        weatherEl.innerText = "Could not load weather.";
+        const response = await fetch(url);
+        const data = await response.json();
+
+        const temp = Math.round(data.main.temp);
+        document.getElementById("weather-temp").innerText = `${temp}°C`;
+
+        const description = data.weather[0].description;
+        document.getElementById("weather-desc").innerText = description;
+
+        const windSpeed = data.wind.speed;
+        document.getElementById("weather-wind").innerText = `${windSpeed} m/s`;
+
+        const iconCode = data.weather[0].icon;
+        document.getElementById("weather-icon").src = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
+
+    } catch (error) {
+        console.error("Fejl ved hentning af vejrdata:", error);
     }
 }
 
@@ -69,6 +82,8 @@ function initTodo() {
     const input = document.getElementById("task-input");
     const addBtn = document.getElementById("add-task-btn");
     const list = document.getElementById("task-list");
+
+    if (!input || !addBtn || !list) return;
 
     chrome.storage.local.get(["tasks"], (result) => {
         const tasks = result.tasks || [];
@@ -104,8 +119,8 @@ function initTodo() {
         });
     }
 }
-document.addEventListener("DOMContentLoaded", () => {
 
+function initSearch() {
     const searchInput = document.getElementById("Search");
     const searchBtn = document.querySelector(".container .search");
 
@@ -120,12 +135,10 @@ document.addEventListener("DOMContentLoaded", () => {
         if (query !== "") {
             const url = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
             window.location.href = url;
-        } else {
         }
     }
 
     searchInput.addEventListener("keydown", (event) => {
-        console.label = "Tast trykket: " + event.key;
         if (event.key === "Enter") {
             event.preventDefault();
             performSearch();
@@ -137,7 +150,8 @@ document.addEventListener("DOMContentLoaded", () => {
             performSearch();
         });
     }
-});
+}
+
 function initCalendar() {
     const monthYearEl = document.getElementById("month-year");
     const daysContainer = document.getElementById("days-container");
@@ -150,6 +164,8 @@ function initCalendar() {
     const saveNoteBtn = document.getElementById("save-note-btn");
     const closeModal = document.getElementById("close-modal");
     const greetingEl = document.getElementById("greeting"); 
+
+    if (!monthYearEl || !daysContainer) return;
 
     let currentDate = new Date();
     let selectedDateKey = ""; 
@@ -198,9 +214,7 @@ function initCalendar() {
             dayDiv.addEventListener("click", () => {
                 selectedDateKey = dateKey;
                 modalDate.innerText = `${i} ${months[month]} ${year}`;
-
                 modalNoteInput.value = localStorage.getItem(dateKey) || "";
-
                 modal.classList.remove("hidden");
             });
 
@@ -242,5 +256,3 @@ function initCalendar() {
 
     renderCalendar();
 }
-
-initCalendar();
