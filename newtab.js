@@ -137,7 +137,7 @@ function initSearch() {
             performSearch();
         }
     });
-
+    
     if (searchBtn) {
         searchBtn.addEventListener("click", () => {
             performSearch();
