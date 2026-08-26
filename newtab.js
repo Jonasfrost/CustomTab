@@ -6,7 +6,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function initClock() {
     const startTime = new Date('2008-09-24T00:00:00');
-    const greetingEl = document.getElementById("greeting");
     const clockEl = document.getElementById("clock");
     const timeSinceEl = document.getElementById("simon-age");
 
@@ -59,7 +58,7 @@ async function fetchWeather() {
     try {
         const res = await fetch("https://api.open-meteo.com/v1/forecast?latitude=55.6761&longitude=12.5683&current_weather=true");
         const data = await res.json();
-        const temp = data.current_weather.temperature;
+        const temp = Math.round(data.current_weather.temperature);
         weatherEl.innerHTML = `Copenhagen<br><strong>${temp}°C</strong>`;
     } catch (err) {
         weatherEl.innerText = "Could not load weather.";
