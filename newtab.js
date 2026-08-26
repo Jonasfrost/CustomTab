@@ -6,12 +6,10 @@ document.addEventListener("DOMContentLoaded", () => {
     initSearch();
     initCalendar();
 });
-
 function initClock() {
     const startTime = new Date('2008-09-24T00:00:00');
     const clockEl = document.getElementById("clock");
     const timeSinceEl = document.getElementById("simon-age");
-
     function update() {
         const now = new Date();
 
@@ -40,7 +38,6 @@ function initClock() {
     update();
     setInterval(update, 1000);
 }
-
 function checkTodayGreeting() {
     const today = new Date();
     const todayKey = `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`;
@@ -77,7 +74,6 @@ async function getWeather() {
         console.error("Fejl ved hentning af vejrdata:", error);
     }
 }
-
 function initTodo() {
     const input = document.getElementById("task-input");
     const addBtn = document.getElementById("add-task-btn");
@@ -103,7 +99,6 @@ function initTodo() {
             });
         });
     });
-
     function renderTasks(tasks) {
         list.innerHTML = "";
         tasks.forEach((task, index) => {
@@ -119,7 +114,6 @@ function initTodo() {
         });
     }
 }
-
 function initSearch() {
     const searchInput = document.getElementById("Search");
     const searchBtn = document.querySelector(".container .search");
@@ -172,7 +166,6 @@ function initCalendar() {
         "January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"
     ];
-
     function renderCalendar() {
         const year = currentDate.getFullYear();
         const month = currentDate.getMonth();
