@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "New Tab Dashboard",
   "version": "1.0",
-  "description": "Et personligt dashboard med ur, vejr, noter og kalender.",
+  "description": "bimbambob",
   "chrome_url_overrides": {
     "newtab": "newtab.html"
   },
