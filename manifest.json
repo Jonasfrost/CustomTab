@@ -4,7 +4,7 @@
   "version": "1.0",
   "description": "Et personligt dashboard med ur, vejr, noter og kalender.",
   "chrome_url_overrides": {
-    "newtab": "index.html"
+    "newtab": "newtab.html"
   },
   "permissions": [
     "storage",
