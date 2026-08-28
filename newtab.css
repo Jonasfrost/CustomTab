@@ -167,7 +167,14 @@ body {
     right: 39%;
     font-size: 140px;
 }
-
+#timer {
+    margin: 0;
+    font-weight: 300;
+    letter-spacing: 2px;
+    position: fixed;
+    top: 34%;
+    right: 50%;
+}
 #clock {
     font-size: 4rem;
     margin: 0;

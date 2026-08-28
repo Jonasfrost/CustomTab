@@ -55,21 +55,19 @@ function initSimonSays() {
                 return;
             }
             let tileIndex = sequence[i];
-            flashTile(tiles[tileIndex]);
+            let tile = tiles[tileIndex];
+
+            flashTile(tile);
+            setTimeout(() => {
+                tile.classList.remove("active");
+            }, 300);
+
             i++;
         }, 600);
     }
 
     function flashTile(tile) {
-        let tileIndex = parseInt(tile.dataset.index);
-
-        tile.style.backgroundImage = tileImages[tileIndex];
         tile.classList.add("active");
-
-        setTimeout(() => {
-            tile.classList.remove("active");
-            tile.style.backgroundImage = "none";
-        }, 300);
     }
 
     tiles.forEach(tile => {
@@ -78,7 +76,11 @@ function initSimonSays() {
 
             let tileIndex = parseInt(tile.dataset.index);
             playerSequence.push(tileIndex);
+
             flashTile(tile);
+            setTimeout(() => {
+                tile.classList.remove("active");
+            }, 300);
 
             let currentIndex = playerSequence.length - 1;
 
@@ -97,7 +99,6 @@ function initSimonSays() {
 
     startBtn.addEventListener("click", startGame);
 }
-
 let colorBtn;
 
 function initColorBtn() {
@@ -115,14 +116,43 @@ function initClock() {
     const startTime = new Date('2008-09-24T00:00:00');
     const clockEl = document.getElementById("clock");
     const timeSinceEl = document.getElementById("simon-age");
+    const timerEl = document.getElementById("timer"); 
+
     function update() {
         const now = new Date();
 
         if (clockEl) {
             clockEl.innerText = now.toLocaleTimeString();
         }
-        const forskelMs = now - startTime;
 
+        if (timerEl) {
+            let target1 = new Date();
+            let target2 = new Date();
+            target1.setHours(14, 30, 0, 0);
+            target2.setHours(14, 0, 0, 0);
+
+            if (now > target1) {
+                target1.setDate(target1.getDate() + 1);
+            }
+
+            const weekdayName = now.toLocaleDateString('da-DK', { weekday: 'long' });
+            let timeLeft = 0;
+
+            if (weekdayName == "fredag") {
+                timeLeft = target2 - now;
+            }
+            else {
+                timeLeft = target1 - now;
+            }
+            let totalSecLeft = Math.floor(timeLeft / 1000);
+            let hoursLeft = Math.floor(totalSecLeft / (60 * 60));
+            let minLeft = Math.floor((totalSecLeft % (60 * 60)) / 60);
+            let secLeft = totalSecLeft % 60;
+
+            timerEl.innerText = `${hoursLeft}t ${minLeft}m ${secLeft}s`;
+        }
+
+        const forskelMs = now - startTime;
         let totalSec = Math.floor(forskelMs / 1000);
         let totalMin = Math.floor(totalSec / 60);
         let totalTimer = Math.floor(totalMin / 60);
@@ -132,7 +162,7 @@ function initClock() {
         let sec = totalSec % 60;
         let min = totalMin % 60;
         let timer = totalTimer % 24;
-        let day = totalDage % 365; 
+        let day = totalDage % 365;
 
         if (timeSinceEl) {
             timeSinceEl.innerText = `${year} År, ${day} Dage, ${timer} Timer, ${min} Minuter, ${sec} Sekunder`;
