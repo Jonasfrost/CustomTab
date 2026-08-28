@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
     initSearch();
     initCalendar();
     initSimonSays();
+    initColorBtn();
 });
 
 const slider = document.getElementById("myRange");
@@ -90,6 +91,19 @@ function initSimonSays() {
     });
 
     startBtn.addEventListener("click", startGame);
+}
+
+let colorBtn;
+
+function initColorBtn() {
+    colorBtn = document.getElementById("color-box");
+
+    if (colorBtn) {
+        colorBtn.addEventListener("click", () => {
+            const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0');
+            colorBtn.style.backgroundColor = randomColor;
+        });
+    }
 }
 
 function initClock() {
