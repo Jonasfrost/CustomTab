@@ -61,9 +61,14 @@ function initSimonSays() {
     }
 
     function flashTile(tile) {
+        let tileIndex = parseInt(tile.dataset.index);
+
+        tile.style.backgroundImage = tileImages[tileIndex];
         tile.classList.add("active");
+
         setTimeout(() => {
             tile.classList.remove("active");
+            tile.style.backgroundImage = "none";
         }, 300);
     }
 
