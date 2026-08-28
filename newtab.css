@@ -345,3 +345,99 @@ body {
     .close-btn:hover {
         color: white;
     }
+
+.slidecontainer {
+    width: 100%;
+    position: fixed;
+    top: 1px;
+}
+
+
+.slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 25px;
+    background: #1e293b;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+    .slider:hover {
+        opacity: 1;
+    }
+
+    .slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 25px;
+        height: 25px;
+        background: #0284c7;
+        cursor: pointer;
+        border-radius: 15px;
+    }
+
+    .slider::-moz-range-thumb {
+        width: 25px; 
+        height: 25px;
+        background: #04AA6D; 
+        cursor: pointer; 
+    }
+
+.memory-card {
+    position: fixed;
+    top: 40px;
+    right: 40px;
+    width: 220px;
+    background: #1e293b;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    z-index: 1000;
+    color: #f8fafc;
+}
+
+    .memory-card h3 {
+        margin-top: 0;
+        margin-bottom: 8px;
+        color: #38bdf8;
+    }
+
+.simon-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 15px;
+    width: 100%;
+    aspect-ratio: 1;
+}
+
+.simon-tile {
+    background: #334155;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.1s ease;
+}
+
+    .simon-tile.active {
+        background: #38bdf8;
+        box-shadow: 0 0 10px #38bdf8;
+    }
+
+#start-simon {
+    width: 100%;
+    padding: 8px;
+    background: #0ea5e9;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+    #start-simon:hover {
+        background: #0284c7;
+    }

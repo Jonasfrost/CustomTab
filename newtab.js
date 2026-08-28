@@ -5,7 +5,93 @@ document.addEventListener("DOMContentLoaded", () => {
     checkTodayGreeting();
     initSearch();
     initCalendar();
+    initSimonSays();
 });
+
+const slider = document.getElementById("myRange");
+const output = document.getElementById("slider-output");
+
+if (slider && output) {
+    slider.oninput = function () {
+        output.innerHTML = this.value;
+    }
+}
+
+function initSimonSays() {
+    const tiles = document.querySelectorAll(".simon-tile");
+    const startBtn = document.getElementById("start-simon");
+    const statusEl = document.getElementById("simon-status");
+
+    if (!startBtn || tiles.length === 0) return;
+
+    let sequence = [];
+    let playerSequence = [];
+    let level = 0;
+    let isPlaying = false;
+
+    function startGame() {
+        sequence = [];
+        playerSequence = [];
+        level = 0;
+        nextRound();
+    }
+
+    function nextRound() {
+        level++;
+        playerSequence = [];
+        statusEl.innerText = `Level ${level}`;
+        sequence.push(Math.floor(Math.random() * 9));
+        playSequence();
+    }
+
+    function playSequence() {
+        isPlaying = true;
+        let i = 0;
+        let interval = setInterval(() => {
+            if (i >= sequence.length) {
+                clearInterval(interval);
+                isPlaying = false;
+                return;
+            }
+            let tileIndex = sequence[i];
+            flashTile(tiles[tileIndex]);
+            i++;
+        }, 600);
+    }
+
+    function flashTile(tile) {
+        tile.classList.add("active");
+        setTimeout(() => {
+            tile.classList.remove("active");
+        }, 300);
+    }
+
+    tiles.forEach(tile => {
+        tile.addEventListener("click", () => {
+            if (isPlaying) return;
+
+            let tileIndex = parseInt(tile.dataset.index);
+            playerSequence.push(tileIndex);
+            flashTile(tile);
+
+            let currentIndex = playerSequence.length - 1;
+
+            if (playerSequence[currentIndex] !== sequence[currentIndex]) {
+                statusEl.innerText = `Game Over! Level ${level}`;
+                isPlaying = true;
+                return;
+            }
+
+            if (playerSequence.length === sequence.length) {
+                isPlaying = true;
+                setTimeout(nextRound, 1000);
+            }
+        });
+    });
+
+    startBtn.addEventListener("click", startGame);
+}
+
 function initClock() {
     const startTime = new Date('2008-09-24T00:00:00');
     const clockEl = document.getElementById("clock");
@@ -16,7 +102,6 @@ function initClock() {
         if (clockEl) {
             clockEl.innerText = now.toLocaleTimeString();
         }
-
         const forskelMs = now - startTime;
 
         let totalSec = Math.floor(forskelMs / 1000);

@@ -6,15 +6,12 @@
   <link rel="stylesheet" href="newtab.css">
 </head>
 <body>
-  <div class="Simon-header">
-    <h1 id="Simon">Simon</h1>
-  </div>
 
   <div class="dashboard-container">
     <!-- Time & Greeting -->
     <div class="header-section">
       <h1 id="clock">00:00:00</h1>
-      <p id="greeting">Hello!</p>
+      <p id="greeting">Hello</p>
     </div>
 
     <div class="card" id="simon-age-card">
@@ -62,12 +59,12 @@
 
   </div>
 
-<div class="container">
+  <div class="container">
     <input type="text" placeholder="Search..." id="Search">
     <div class="search" tabindex="0"></div>
-</div>
+  </div>
 
-<div id="day-modal" class="modal hidden">
+  <div id="day-modal" class="modal hidden">
     <div class="modal-content">
         <span id="close-modal" class="close-btn">&times;</span>
         <h3 id="modal-date">Dato</h3>
@@ -75,8 +72,34 @@
         <input type="text" id="modal-note-input" placeholder="Skriv en note">
         <button id="save-note-btn">Gem</button>
     </div>
-</div>
+  </div>
 
+  <div class="slidecontainer">
+    <input type="range" min="0" max="100" value="50" class="slider" id="myRange">
+    <p><span id="slider-output">50</span></p>
+
+  <div class="Simon-header">
+    <h1 id="Simon">Simon</h1>
+  </div>
+
+  </div>
+
+ <div class="card memory-card">
+    <h3>Simon Says</h3>
+    <p id="simon-status"></p>
+    <div id="simon-grid" class="simon-grid">
+        <div class="simon-tile" data-index="0"></div>
+        <div class="simon-tile" data-index="1"></div>
+        <div class="simon-tile" data-index="2"></div>
+        <div class="simon-tile" data-index="3"></div>
+        <div class="simon-tile" data-index="4"></div>
+        <div class="simon-tile" data-index="5"></div>
+        <div class="simon-tile" data-index="6"></div>
+        <div class="simon-tile" data-index="7"></div>
+        <div class="simon-tile" data-index="8"></div>
+    </div>
+    <button id="start-simon">Start Spil</button>
+</div>
   <script src="newtab.js"></script>
 </body>
 </html>
