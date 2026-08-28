@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     initCalendar();
     initSimonSays();
     initColorBtn();
+    initCheckIn();
 });
 
 const slider = document.getElementById("myRange");
@@ -111,9 +112,21 @@ function initColorBtn() {
         });
     }
 }
+let timeLeft; 
 
+function initCheckIn() {
+    const checkInBtn = document.getElementById("check");
+
+    if (checkInBtn) {
+        checkInBtn.addEventListener("click", () => {
+            let now = new Date();
+            timeLeft = now; 
+            console.log("Check-in klikket på tidspunkt:", timeLeft);
+        });
+    }
+}
 function initClock() {
-    const startTime = new Date('2008-09-24T00:00:00');
+    const startTime = new Date('2008-09-24T04:05:37');
     const clockEl = document.getElementById("clock");
     const timeSinceEl = document.getElementById("simon-age");
     const timerEl = document.getElementById("timer"); 
@@ -136,7 +149,6 @@ function initClock() {
             }
 
             const weekdayName = now.toLocaleDateString('da-DK', { weekday: 'long' });
-            let timeLeft = 0;
 
             if (weekdayName == "fredag") {
                 timeLeft = target2 - now;
@@ -144,6 +156,7 @@ function initClock() {
             else {
                 timeLeft = target1 - now;
             }
+
             let totalSecLeft = Math.floor(timeLeft / 1000);
             let hoursLeft = Math.floor(totalSecLeft / (60 * 60));
             let minLeft = Math.floor((totalSecLeft % (60 * 60)) / 60);
