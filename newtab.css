@@ -81,7 +81,7 @@ body {
 }
 
     .hero-header h1#Simon {
-        font-size: 10rem;
+        font-size: 6rem;
         background: linear-gradient(90deg, #f59e0b, #ec4899);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
@@ -95,14 +95,14 @@ body {
 .circle.hover-spin {
     display: inline-block;
     vertical-align: middle;
-    margin: 0 4px;
+    margin: 0 6px;
     cursor: pointer;
 }
 
     /* Billede uden ramme/skygge, med uendelig spin ved hover */
     .circle.hover-spin img {
-        width: 80px;
-        height: 80px;
+        width: 75px;
+        height: 75px;
         border-radius: 50%;
         object-fit: cover;
         border: none;
@@ -110,7 +110,7 @@ body {
     }
 
     .circle.hover-spin:hover img {
-        animation: fast-spin 0.00001s linear infinite;
+        animation: fast-spin 0.6s linear infinite;
     }
 
 @keyframes fast-spin {
@@ -153,29 +153,141 @@ body {
         font-size: 0.95rem;
     }
 
-/* Søgefelt i midten */
-.search-wrapper {
-    width: 100%;
+/* Søgefelt der udvider sig blødt fra knappen */
+.search-container {
+    position: relative;
+    width: 300px;
+    height: 80px;
     display: flex;
-    gap: 8px;
-}
+    align-items: center;
+    justify-content: center;
 
-    .search-wrapper input[type="text"] {
-        width: 100%;
-        padding: 12px 18px;
-        border-radius: 10px;
-        border: 1px solid #374151;
-        background-color: #111827;
-        color: white;
-        outline: none;
-        font-size: 0.95rem;
-        box-sizing: border-box;
-        transition: border-color 0.2s;
+    .search {
+        position: absolute;
+        margin: auto;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        width: 50px;
+        height: 50px;
+        background: #0ea5e9;
+        border-radius: 50%;
+        transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 4;
+        box-shadow: 0 4px 12px rgba(14, 165, 233, 0.4);
+
+        &:hover {
+            cursor: pointer;
+            background: #0284c7;
+        }
+
+        &::before {
+            content: "";
+            position: absolute;
+            margin: auto;
+            top: 18px;
+            right: 0;
+            bottom: 0;
+            left: 14px;
+            width: 10px;
+            height: 2px;
+            background: white;
+            transform: rotate(45deg);
+            transition: all 0.5s;
+        }
+
+        &::after {
+            content: "";
+            position: absolute;
+            margin: auto;
+            top: -4px;
+            right: 0;
+            bottom: 0;
+            left: -4px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            border: 2px solid white;
+            transition: all 0.5s;
+        }
     }
 
-        .search-wrapper input[type="text"]:focus {
-            border-color: #3b82f6;
+    input {
+        font-family: inherit;
+        position: absolute;
+        margin: auto;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 50px;
+        height: 50px;
+        outline: none;
+        border: none;
+        background: #0ea5e9;
+        color: white;
+        padding: 0 60px 0 20px;
+        border-radius: 30px;
+        box-shadow: 0 4px 12px rgba(14, 165, 233, 0.4);
+        transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        opacity: 0;
+        z-index: 4;
+        font-weight: 600;
+        font-size: 0.95rem;
+
+        &:hover {
+            cursor: pointer;
         }
+
+        &:focus {
+            width: 300px;
+            opacity: 1;
+            cursor: text;
+            left: -100px;
+            background: #111827;
+            border: 1px solid #374151;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+            &:focus ~ .search {
+                background: #151515;
+                z-index: 6;
+
+                &::before {
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    margin: auto;
+                    width: 16px;
+                    height: 2px;
+                    border-radius: 0%;
+                    transform: rotate(45deg);
+                }
+
+                &::after {
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    margin: auto;
+                    width: 16px;
+                    height: 2px;
+                    border: none;
+                    background: white;
+                    border-radius: 0%;
+                    transform: rotate(-45deg);
+                }
+            }
+
+        &::placeholder {
+            color: #94a3b8;
+            opacity: 0.7;
+            font-weight: normal;
+        }
+    }
+}
 
 /* Slider placeret i midten */
 .slidecontainer {
@@ -216,6 +328,10 @@ body {
     .check:hover, #start-simon:hover {
         background-color: #0284c7;
         transform: translateY(-1px);
+    }
+
+    .check:active, #start-simon:active, #add-task-btn:active, #save-note-btn:active {
+        transform: translateY(1px) scale(0.98);
     }
 
 /* Simon Says Grid */

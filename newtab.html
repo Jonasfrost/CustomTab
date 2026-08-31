@@ -9,7 +9,7 @@
 
   <div class="dashboard-layout">
     
-    <!-- VENSTRE KOLONNE -->
+    <!-- VENSTRE KOLONNE (Alder, Vejr, To-do, Kalender) -->
     <div class="side-column">
       <div class="card" id="simon-age-card">
         <h3>Simons alder</h3>
@@ -53,16 +53,18 @@
       </div>
     </div>
 
-    <!-- MIDTERSTE KOLONNE -->
+    <!-- MIDTERSTE KOLONNE (Slider, Simon Header m. Billede, Ur, Hilsen, Check-in og Søg) -->
     <div class="center-column">
+      
       <div class="slidecontainer">
         <input type="range" min="0" max="100" value="50" class="slider" id="myRange">
         <span id="slider-output">50</span>
       </div>
 
       <div class="hero-header">
-         <h1 id="Simon">Sim<div class="circle hover-spin"><img src="mads.jpg" alt="Img"></div>n</h1>
-       </div>
+        <h1 id="Simon">Sim<div class="circle hover-spin"><img src="mads.jpg" alt="Img"></div>n</h1>
+      </div>
+
       <div class="header-section">
         <h3 id="timer">00:00:00</h3>
         <h1 id="clock">00:00:00</h1>
@@ -71,13 +73,14 @@
 
       <button id="check-in" class="check">Check in</button>
 
-      <div class="container search-wrapper">
-        <input type="text" placeholder="Search..." id="Search">
-        <div class="search" tabindex="0"></div>
+      <div class="search-container">
+        <div class="search" id="search-btn" tabindex="0"></div>
+        <input type="text" placeholder="Search..." id="Search" class="search-input hidden">
       </div>
-    </div>
 
-    <!-- HØJRE KOLONNE (Simon Says + Farveboks) -->
+    </div> <!-- <-- HER LUKKES MIDTERSTE KOLONNE KORREKT NU -->
+
+    <!-- HØJRE KOLONNE (Simon Says Spil & Farveboks) -->
     <div class="right-column">
       <div class="card memory-card">
         <h3>Simon Says</h3>

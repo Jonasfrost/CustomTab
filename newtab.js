@@ -298,27 +298,22 @@ const TaskManager = {
 
 const SearchManager = {
     init() {
-        const searchInput = document.getElementById("Search");
-        const searchBtn = document.querySelector(".container .search");
+        const searchBtn = document.getElementById('search-btn');
+        const searchInput = document.getElementById('Search');
 
-        if (!searchInput) return;
+        if (searchBtn && searchInput) {
+            searchBtn.addEventListener('click', () => {
+                searchBtn.classList.add('hidden');
+                searchInput.classList.remove('hidden');
+                searchInput.focus();
+            });
 
-        const performSearch = () => {
-            const query = searchInput.value.trim();
-            if (query !== "") {
-                window.location.href = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
-            }
-        };
-
-        searchInput.addEventListener("keydown", (event) => {
-            if (event.key === "Enter") {
-                event.preventDefault();
-                performSearch();
-            }
-        });
-
-        if (searchBtn) {
-            searchBtn.addEventListener("click", performSearch);
+            searchInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' && searchInput.value.trim() !== '') {
+                    const query = encodeURIComponent(searchInput.value);
+                    window.location.href = `https://www.google.com/search?q=${query}`;
+                }
+            });
         }
     }
 };
