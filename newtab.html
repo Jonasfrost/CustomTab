@@ -7,108 +7,110 @@
 </head>
 <body>
 
-  <div class="dashboard-container">
-    <!-- Time & Greeting -->
-    <div class="header-section">
-      <h3 id="timer">00:00:00</3h>
-      <h1 id="clock">00:00:00</h1>
-      <p id="greeting">Hello</p>
-    </div>
+  <div class="dashboard-layout">
+    
+    <!-- VENSTRE KOLONNE -->
+    <div class="side-column">
+      <div class="card" id="simon-age-card">
+        <h3>Simons alder</h3>
+        <p id="simon-age"></p>
+      </div>
 
-    <div class="card" id="simon-age-card">
-      <h3>Simons alder</h3>
-      <p id="simon-age"></p>
-    </div>
-
-    <div class="card weather-card">
-      <h3>Weather</h3>
-      <div id="weather-info">
-        <p>Copenhagen</p>
-        <div class="weather-details">
-            <img id="weather-icon" src="" alt="Vejr ikon" width="50">
+      <div class="card weather-card">
+        <h3>Weather</h3>
+        <div id="weather-info">
+          <p class="city-title">Copenhagen</p>
+          <div class="weather-details">
+            <img id="weather-icon" src="" alt="Vejr ikon" width="45">
             <div>
-                <p id="weather-temp">--°C</p>
-                <p id="weather-desc">Henter vejr...</p>
-                <p>Vind: <span id="weather-wind">--</span></p>
+              <p id="weather-temp">--°C</p>
+              <p id="weather-desc">Henter vejr...</p>
+              <p class="wind-text">Vind: <span id="weather-wind">--</span></p>
             </div>
-       </div>
+          </div>
+        </div>
       </div>
-    </div>
 
-    <div class="card" id="todo-card">
-      <h3>Productivity Tasks</h3>
-      <div class="todo-input-group">
-        <input type="text" id="task-input" placeholder="Add a new task">
-        <button id="add-task-btn">Add</button>
+      <div class="card" id="todo-card">
+        <h3>Productivity Tasks</h3>
+        <div class="todo-input-group">
+          <input type="text" id="task-input" placeholder="Add a new task">
+          <button id="add-task-btn">Add</button>
+        </div>
+        <ul id="task-list"></ul>
       </div>
-      <ul id="task-list"></ul>
-    </div>
 
-    <div class="card calendar-card">
+      <div class="card calendar-card">
         <div class="calendar-header">
-            <button id="prev-month">&#10094;</button>
-            <h2 id="month-year">MONTH YEAR</h2>
-            <button id="next-month">&#10095;</button>
+          <button id="prev-month">&#10094;</button>
+          <h2 id="month-year">MONTH YEAR</h2>
+          <button id="next-month">&#10095;</button>
         </div>
-
         <div class="weekdays">
-            <div>Mo</div><div>Tu</div><div>We</div><div>Th</div><div>Fr</div><div>Sa</div><div>Su</div>
+          <div>Mo</div><div>Tu</div><div>We</div><div>Th</div><div>Fr</div><div>Sa</div><div>Su</div>
         </div>
-
         <div id="days-container" class="days-grid"></div>
+      </div>
+    </div>
+
+    <!-- MIDTERSTE KOLONNE -->
+    <div class="center-column">
+      <div class="slidecontainer">
+        <input type="range" min="0" max="100" value="50" class="slider" id="myRange">
+        <span id="slider-output">50</span>
+      </div>
+
+      <div class="hero-header">
+         <h1 id="Simon">Sim<div class="circle hover-spin"><img src="mads.jpg" alt="Img"></div>n</h1>
+       </div>
+      <div class="header-section">
+        <h3 id="timer">00:00:00</h3>
+        <h1 id="clock">00:00:00</h1>
+        <p id="greeting">Hello</p>
+      </div>
+
+      <button id="check-in" class="check">Check in</button>
+
+      <div class="container search-wrapper">
+        <input type="text" placeholder="Search..." id="Search">
+        <div class="search" tabindex="0"></div>
+      </div>
+    </div>
+
+    <!-- HØJRE KOLONNE (Simon Says + Farveboks) -->
+    <div class="right-column">
+      <div class="card memory-card">
+        <h3>Simon Says</h3>
+        <p id="simon-status"></p>
+        <div id="simon-grid" class="simon-grid">
+          <div class="simon-tile" data-index="0"></div>
+          <div class="simon-tile" data-index="1"></div>
+          <div class="simon-tile" data-index="2"></div>
+          <div class="simon-tile" data-index="3"></div>
+          <div class="simon-tile" data-index="4"></div>
+          <div class="simon-tile" data-index="5"></div>
+          <div class="simon-tile" data-index="6"></div>
+          <div class="simon-tile" data-index="7"></div>
+          <div class="simon-tile" data-index="8"></div>
+        </div>
+        <button id="start-simon">Start Spil</button>
+      </div>
+
+      <button id="color-box" class="color-box"></button>
     </div>
 
   </div>
 
-  <div class="container">
-    <input type="text" placeholder="Search..." id="Search">
-    <div class="search" tabindex="0"></div>
-  </div>
-
+  <!-- Modal -->
   <div id="day-modal" class="modal hidden">
     <div class="modal-content">
-        <span id="close-modal" class="close-btn">&times;</span>
-        <h3 id="modal-date">Dato</h3>
-        <p>Her kan du tilføje noter</p>
-        <input type="text" id="modal-note-input" placeholder="Skriv en note">
-        <button id="save-note-btn">Gem</button>
+      <span id="close-modal" class="close-btn">&times;</span>
+      <h3 id="modal-date">Dato</h3>
+      <p>Her kan du tilføje noter</p>
+      <input type="text" id="modal-note-input" placeholder="Skriv en note">
+      <button id="save-note-btn">Gem</button>
     </div>
   </div>
-
-  <div class="slidecontainer">
-    <input type="range" min="0" max="100" value="50" class="slider" id="myRange">
-    <p><span id="slider-output">50</span></p>
-
-  <div class="Simon-header">
-    <h1 id="Simon">Simon</h1>
-  </div>
-</div>
-
- <div class="card memory-card">
-   <h3>Simon Says</h3>
-   <p id="simon-status"></p>
-   <div id="simon-grid" class="simon-grid">
-       <div class="simon-tile" data-index="0"></div>
-       <div class="simon-tile" data-index="1"></div>
-       <div class="simon-tile" data-index="2"></div>
-       <div class="simon-tile" data-index="3"></div>
-       <div class="simon-tile" data-index="4"></div>
-       <div class="simon-tile" data-index="5"></div>
-       <div class="simon-tile" data-index="6"></div>
-       <div class="simon-tile" data-index="7"></div>
-       <div class="simon-tile" data-index="8"></div>
-    </div>
-    <button id="start-simon">Start Spil</button>
-  </div>
-	
-  <button id="color-box" class="color-box"></button>
-   
-
-  <div class="circle hover-spin">
-     <img src="mads.jpg" alt ="Img">
-  </div>
-
-  <button id="check-in" class="check">Check in</button>
 
   <script src="newtab.js"></script>
 </body>

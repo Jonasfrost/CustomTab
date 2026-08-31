@@ -1,489 +1,119 @@
-body {
+html, body {
     margin: 0;
     padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #0f172a;
-    color: #f8fafc;
-    display: flex;
-    justify-content: left;
-    align-items: center;
-    height: 100vh;
+    width: 100%;
+    min-height: 100vh;
+    background-color: #0b0f19;
+    color: #ffffff;
+    font-family: system-ui, -apple-system, sans-serif;
+    box-sizing: border-box;
 }
 
-.dashboard-container {
-    text-align: center;
-    width: 350px;
+body {
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+/* Får hele layoutet til at strække sig ud over hele skærmen med luft imellem */
+.dashboard-layout {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 100%;
+    gap: 30px;
+    box-sizing: border-box;
+}
+
+/* Venstre kolonne */
+.side-column {
     display: flex;
     flex-direction: column;
-    gap: 30px;
-}
-
-.widgets-grid {
-    display: grid;
-    grid-template-rows: 1fr 1fr;
     gap: 20px;
+    width: 320px;
+    flex-shrink: 0;
 }
 
+/* Midterkolonne (flyder ud og centrerer indholdet) */
+.center-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    flex-grow: 1;
+    max-width: 600px;
+}
+
+/* Højre kolonne */
+.right-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 320px;
+    flex-shrink: 0;
+}
+
+/* Generelt kort-design */
 .card {
-    background: #1e293b;
-    padding: 20px;
+    background-color: #111827;
     border-radius: 12px;
+    padding: 18px;
+    border: 1px solid #1f2937;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
-    text-align: left;
+    width: 100%;
+    box-sizing: border-box;
 }
 
     .card h3 {
         margin-top: 0;
+        color: #60a5fa;
         font-size: 1rem;
-        color: #38bdf8;
-        border-bottom: 1px solid #334155;
-        padding-bottom: 8px;
+        margin-bottom: 10px;
     }
 
-@import url('https://fonts.googleapis.com/css?family=Inconsolata:700');
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-.container {
-    float: right;
-    position: fixed;
-    top: 50%;
-    right: 48.5%;
-    width: 300px;
-    height: 100px;
-    align-content: center;
-
-    input {
-        font-family: 'Inconsolata', monospace;
-        position: fixed;
-        margin: auto;
-        top: 2%;
-        right: 4%;
-        bottom: 0;
-        left: 0;
-        width: 50px;
-        height: 50px;
-        outline: none;
-        border: none;
-        background: #0284c7;
-        color: white;
-        text-shadow: 0 0 10px #334155;
-        padding: 0 80px 0 20px;
-        border-radius: 30px;
-        box-shadow: 0 0 25px 0 #0284c7, 0 20px 25px 0 rgba(0, 0, 0, 0.2);
-        transition: all 1s;
-        opacity: 80;
-        z-index: 4;
-        font-weight: bolder;
-        letter-spacing: 0.1em;
-
-        &:hover {
-            cursor: pointer;
-        }
-
-        &:focus {
-            width: 300px;
-            opacity: 1;
-            cursor: text;
-            left: 0px;
-        }
-
-            &:focus ~ .search {
-                background: #151515;
-                z-index: 6;
-
-                &::before {
-                    top: 0;
-                    left: 0;
-                    width: 25px;
-                }
-            }
-
-        &::placeholder {
-            color: white;
-            opacity: 0.5;
-            font-weight: bolder;
-        }
-    }
-}
-
-.todo-input-group {
+/* Midtersektion: Simon Header og Billede */
+.hero-header {
     display: flex;
-    gap: 5px;
-    margin-bottom: 10px;
-}
-
-    .todo-input-group input {
-        flex: 1;
-        background: #0f172a;
-        border: 1px solid #475569;
-        border-radius: 4px;
-        padding: 6px;
-        color: white;
-    }
-
-    .todo-input-group button {
-        background: #0284c7;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        padding: 6px 12px;
-        cursor: pointer;
-    }
-
-        .todo-input-group button:hover {
-            background: #0ea5e9;
-        }
-
-#task-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    max-height: 120px;
-    overflow-y: auto;
-}
-
-    #task-list li {
-        background: #0f172a;
-        padding: 6px 8px;
-        margin-bottom: 4px;
-        border-radius: 4px;
-        font-size: 0.9rem;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-#Simon {
-    color: goldenrod;
-    margin: 0;
-    text-align: center;
-    position: fixed;
-    top: 16%;
-    right: 39%;
-    font-size: 140px;
-}
-#timer {
-    margin: 0;
-    font-weight: 300;
-    letter-spacing: 2px;
-    position: fixed;
-    top: 34%;
-    right: 50%;
-}
-#clock {
-    font-size: 4rem;
-    margin: 0;
-    font-weight: 300;
-    letter-spacing: 2px;
-    position: fixed;
-    top: 35%;
-    right: 44%;
-}
-
-#greeting {
-    font-size: 1.2rem;
-    color: #94a3b8;
-    margin: 5px 0 0 0;
-    position: fixed;
-    right: 50%;
-    top: 43%;
-}
-
-#simon-age {
-    font-size: 1.2rem;
-    margin-top: 10px;
-}
-
-ul {
-    list-style-type: none;
-}
-
-body {
-    font-family: Verdana, sans-serif;
-}
-
-.calendar-card {
-    background: #1e293b;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
-    width: 100%;
-    max-width: 400px;
-    box-sizing: border-box;
-}
-
-.calendar-header {
-    display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin-bottom: 15px;
-}
-
-    .calendar-header h2 {
-        font-size: 1.1rem;
-        margin: 0;
-        color: #38bdf8;
-    }
-
-    .calendar-header button {
-        background: #334155;
-        color: white;
-        border: none;
-        border-radius: 50px;
-        width: 30px;
-        height: 30px;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-        .calendar-header button:hover {
-            background: #475569;
-        }
-
-.weekdays {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    text-align: center;
-    font-weight: bold;
-    font-size: 0.9rem;
-    margin-bottom: 10px;
-}
-
-.days-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 4px;
-    text-align: center;
-}
-
-    .days-grid div {
-        padding: 8px 0;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 0.9rem;
-    }
-
-        .days-grid div:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-    .days-grid .padding-day {
-        opacity: 0.3; 
-    }
-
-    .days-grid .today {
-        background: #0284c7;
-        color: white;
-        font-weight: bold;
-    }
-
-.modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    display: flex;
     justify-content: center;
-    align-items: center;
-    z-index: 1000;
+    width: 100%;
 }
 
-    .modal.hidden {
-        display: none;
-    }
-.modal-content {
-    background: #1e293b;
-    color: #f8fafc;
-    padding: 20px 25px;
-    border-radius: 12px;
-    width: 300px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-    .modal-content h3 {
+    .hero-header h1#Simon {
+        font-size: 10rem;
+        background: linear-gradient(90deg, #f59e0b, #ec4899);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
         margin: 0;
-        color: #38bdf8;
+        font-weight: 800;
+        letter-spacing: -1px;
+        display: flex;
+        align-items: center;
     }
 
-    .modal-content input {
-        background: #0f172a;
-        border: 1px solid #475569;
-        border-radius: 4px;
-        padding: 8px;
-        color: white;
-        outline: none;
-    }
+.circle.hover-spin {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 4px;
+    cursor: pointer;
+}
 
-    .modal-content button {
-        background: #0284c7;
-        color: white;
+    /* Billede uden ramme/skygge, med uendelig spin ved hover */
+    .circle.hover-spin img {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        object-fit: cover;
         border: none;
-        border-radius: 4px;
-        padding: 8px;
-        cursor: pointer;
+        box-shadow: none;
     }
 
-        .modal-content button:hover {
-            background: #0ea5e9;
-        }
-
-.close-btn {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: #94a3b8;
-}
-
-    .close-btn:hover {
-        color: white;
+    .circle.hover-spin:hover img {
+        animation: fast-spin 0.00001s linear infinite;
     }
 
-.slidecontainer {
-    width: 100%;
-    position: fixed;
-    top: 1px;
-}
-
-
-.slider {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 100%;
-    height: 25px;
-    background: #1e293b;
-    outline: none;
-    opacity: 0.7;
-    -webkit-transition: .2s;
-    transition: opacity .2s;
-}
-
-    .slider:hover {
-        opacity: 1;
-    }
-
-    .slider::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        appearance: none;
-        width: 25px;
-        height: 25px;
-        background: #0284c7;
-        cursor: pointer;
-        border-radius: 15px;
-    }
-
-    .slider::-moz-range-thumb {
-        width: 25px; 
-        height: 25px;
-        background: #04AA6D; 
-        cursor: pointer; 
-    }
-
-.memory-card {
-    position: fixed;
-    top: 40px;
-    right: 40px;
-    width: 220px;
-    background: #1e293b;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
-    box-sizing: border-box;
-    z-index: 1000;
-    color: #f8fafc;
-}
-
-    .memory-card h3 {
-        margin-top: 0;
-        margin-bottom: 8px;
-        color: #38bdf4;
-    }
-
-.simon-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-    margin-bottom: 15px;
-    width: 100%;
-    aspect-ratio: 1;
-}
-
-.simon-tile {
-    background: #334155;
-    border-radius: 6px;
-    cursor: pointer;
-    background-size: cover; 
-    background-position: center; 
-    transition: background 0.1s ease;
-}
-
-    .simon-tile.active {
-        background-image: url('mads.jpg'); 
-        background-size: cover;
-        background-position: center;
-        box-shadow: 0 0 10px #38bdf8;
-    }
-
-#start-simon {
-    width: 100%;
-    padding: 8px;
-    background: #0ea5e9;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-    #start-simon:hover {
-        background: #0284c7;
-    }
-
-.color-box {
-    width: 220px;
-    height: 50px;
-    background: #0284c7;
-    border-radius: 10px;
-    right: 2%;
-    position: fixed;
-    top: 36%;
-}
-
-.circle {
-    width: 100px;
-    height: 100px;
-    border-radius: 100px;
-    overflow: hidden; 
-    position: fixed;
-    top: 21%;
-    right: 44%;
-}
-
-    .circle img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover; 
-    }
-
-.hover-spin:hover {
-    animation: spin 0.00001s linear infinite;
-}
-
-@keyframes spin {
+@keyframes fast-spin {
     from {
         transform: rotate(0deg);
     }
@@ -493,12 +123,296 @@ body {
     }
 }
 
-.check {
-    width: 110px;
-    height: 25px;
-    background: #0284c7;
+/* Ur og Tæller i midten */
+.header-section {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    width: 100%;
+}
+
+    .header-section h1#clock {
+        font-size: 3.2rem;
+        margin: 0;
+        font-weight: 700;
+        letter-spacing: 1px;
+    }
+
+    .header-section h3#timer {
+        font-size: 1.1rem;
+        color: #94a3b8;
+        margin: 0;
+        font-weight: 500;
+    }
+
+    .header-section p#greeting {
+        color: #64748b;
+        margin: 4px 0 0 0;
+        font-size: 0.95rem;
+    }
+
+/* Søgefelt i midten */
+.search-wrapper {
+    width: 100%;
+    display: flex;
+    gap: 8px;
+}
+
+    .search-wrapper input[type="text"] {
+        width: 100%;
+        padding: 12px 18px;
+        border-radius: 10px;
+        border: 1px solid #374151;
+        background-color: #111827;
+        color: white;
+        outline: none;
+        font-size: 0.95rem;
+        box-sizing: border-box;
+        transition: border-color 0.2s;
+    }
+
+        .search-wrapper input[type="text"]:focus {
+            border-color: #3b82f6;
+        }
+
+/* Slider placeret i midten */
+.slidecontainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background: #111827;
+    padding: 8px 20px;
+    border-radius: 20px;
+    border: 1px solid #1f2937;
+    width: 100%;
+    max-width: 400px;
+    box-sizing: border-box;
+}
+
+.slider {
+    accent-color: #3b82f6;
+    cursor: pointer;
+    width: 100%;
+}
+
+/* Knapper */
+.check, #start-simon, #add-task-btn, #save-note-btn {
+    background-color: #0ea5e9;
+    color: white;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
+    transition: background 0.2s, transform 0.1s;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+    .check:hover, #start-simon:hover {
+        background-color: #0284c7;
+        transform: translateY(-1px);
+    }
+
+/* Simon Says Grid */
+.simon-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.simon-tile {
+    aspect-ratio: 1;
+    background-color: #1f2937;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.1s, transform 0.1s;
+}
+
+    .simon-tile:hover {
+        background-color: #374151;
+    }
+
+    .simon-tile.active {
+        background-color: #facc15;
+        box-shadow: 0 0 10px #facc15;
+    }
+
+/* To-do liste design */
+.todo-input-group {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+    .todo-input-group input {
+        flex: 1;
+        padding: 8px 10px;
+        border-radius: 6px;
+        border: 1px solid #374151;
+        background: #1f2937;
+        color: white;
+        outline: none;
+    }
+
+#task-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+    #task-list li {
+        background: #1f2937;
+        padding: 8px 12px;
+        border-radius: 6px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.9rem;
+    }
+
+/* Kalender design */
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+    .calendar-header button {
+        background: none;
+        border: none;
+        color: #94a3b8;
+        cursor: pointer;
+        font-size: 1rem;
+    }
+
+    .calendar-header h2 {
+        font-size: 0.95rem;
+        margin: 0;
+        color: #f3f4f6;
+    }
+
+.weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    font-size: 0.75rem;
+    color: #64748b;
+    margin-bottom: 6px;
+}
+
+.days-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 3px;
+    text-align: center;
+}
+
+.day, .padding-day {
+    padding: 6px 0;
+    font-size: 0.8rem;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #cbd5e1;
+}
+
+.padding-day {
+    color: #4b5563;
+}
+
+.day:hover {
+    background-color: #374151;
+}
+
+.day.today {
+    background-color: #0ea5e9;
+    color: white;
+    font-weight: bold;
+}
+
+.day.has-note {
+    border-bottom: 2px solid #f59e0b;
+}
+
+/* Vejr detaljer */
+.weather-details {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.city-title {
+    margin: 0 0 5px 0;
+    font-size: 0.85rem;
+    color: #94a3b8;
+}
+
+/* Farveboks knap */
+.color-box {
+    width: 100%;
+    height: 45px;
     border-radius: 10px;
-    right: 5%;
+    border: 1px solid #374151;
+    cursor: pointer;
+    background-color: #1f2937;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+    .color-box:hover {
+        border-color: #4b5563;
+    }
+
+/* Modal */
+.modal {
     position: fixed;
-    top: 45%;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+    .modal.hidden {
+        display: none;
+    }
+
+.modal-content {
+    background: #111827;
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid #1f2937;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: relative;
+}
+
+    .modal-content input {
+        padding: 8px;
+        border-radius: 6px;
+        border: 1px solid #374151;
+        background: #1f2937;
+        color: white;
+    }
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: #94a3b8;
 }
