@@ -299,17 +299,26 @@ const TaskManager = {
 
 const SearchManager = {
     init() {
+        const searchContainer = document.querySelector('.search-container');
         const searchBtn = document.getElementById('search-btn');
         const searchInput = document.getElementById('Search');
 
-        if (searchBtn && searchInput) {
+        if (searchContainer && searchBtn && searchInput) {
             searchBtn.addEventListener('click', () => {
-                searchBtn.classList.add('hidden');
-                searchInput.classList.remove('hidden');
+                searchContainer.classList.add('active');
                 searchInput.focus();
             });
 
+            document.addEventListener('click', (e) => {
+                if (!searchContainer.contains(e.target)) {
+                    searchContainer.classList.remove('active');
+                }
+            });
+
             searchInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    searchContainer.classList.remove('active');
+                }
                 if (e.key === 'Enter' && searchInput.value.trim() !== '') {
                     const query = encodeURIComponent(searchInput.value);
                     window.location.href = `https://www.google.com/search?q=${query}`;
@@ -318,7 +327,6 @@ const SearchManager = {
         }
     }
 };
-
 const CalendarManager = {
     init() {
         const monthYearEl = document.getElementById("month-year");
@@ -415,45 +423,98 @@ const CalendarManager = {
 
 const CalculatorManager = {
     init() {
-        const resultField = document.getElementById("result");
-        const buttons = document.querySelectorAll(".calc-buttons button");
+        const resultInput = document.getElementById('result');
+        const buttons = document.querySelectorAll('.calculator .calc-buttons button');
 
-        if (!resultField || buttons.length === 0) return;
+        if (!resultInput || buttons.length === 0) return;
+
+        // Sikker indbygget udregner uden eval/new Function
+        function safeEval(expr) {
+            let tokens = expr.match(/(\d+\.\d+|\d+|\+|\-|\*|\/|\(|\))/g);
+            if (!tokens) throw new Error("Ugyldigt udtryk");
+
+            let index = 0;
+            function peek() { return tokens[index]; }
+            function consume() { return tokens[index++]; }
+
+            function parseExpression() {
+                let node = parseTerm();
+                while (peek() === '+' || peek() === '-') {
+                    let op = consume();
+                    let right = parseTerm();
+                    if (op === '+') node += right;
+                    if (op === '-') node -= right;
+                }
+                return node;
+            }
+
+            function parseTerm() {
+                let node = parseFactor();
+                while (peek() === '*' || peek() === '/') {
+                    let op = consume();
+                    let right = parseFactor();
+                    if (op === '*') node *= right;
+                    if (op === '/') {
+                        if (right === 0) throw new Error("Division med nul");
+                        node /= right;
+                    }
+                }
+                return node;
+            }
+
+            function parseFactor() {
+                let token = consume();
+                if (!token) throw new Error("Uventet slutning");
+                if (token === '(') {
+                    let node = parseExpression();
+                    if (consume() !== ')') throw new Error("Mangler parentes");
+                    return node;
+                }
+                let num = parseFloat(token);
+                if (isNaN(num)) throw new Error("Ugyldigt tal");
+                return num;
+            }
+
+            let result = parseExpression();
+            if (index < tokens.length) throw new Error("Ugyldigt udtryk");
+            return result;
+        }
 
         buttons.forEach(button => {
-            button.addEventListener("click", () => {
-                const value = button.innerText;
+            // Undgå at knappen får tilføjet event listener flere gange
+            if (button.dataset.listenerAttached === "true") return;
+            button.dataset.listenerAttached = "true";
 
-                if (value === "c" || value === "C") {
-                    resultField.value = "";
-                } else if (value === "=") {
+            button.addEventListener('click', () => {
+                const value = button.textContent.trim();
+
+                if (value === 'c' || value === 'C') {
+                    resultInput.value = '';
+                } else if (value === '=') {
                     try {
-                        // Undgå at køre eval på tommefelter eller ugyldige tegn
-                        if (resultField.value.trim() === "") return;
+                        let expression = resultInput.value
+                            .replace(/×/g, '*')
+                            .replace(/÷/g, '/')
+                            .replace(/,/g, '.');
 
-                        // Udregn resultatet sikkert
-                        let res = eval(resultField.value);
-
-                        // Håndterer hvis resultatet er ugyldigt (f.eks. ved division med 0)
-                        if (isNaN(res) || !isFinite(res)) {
-                            resultField.value = "Fejl";
-                        } else {
-                            resultField.value = res;
-                        }
+                        resultInput.value = safeEval(expression);
                     } catch (error) {
-                        resultField.value = "Fejl";
+                        resultInput.value = 'Fejl';
                     }
                 } else {
-                    // Hvis skærmen viser "Fejl", rydder vi den før vi skriver videre
-                    if (resultField.value === "Fejl") {
-                        resultField.value = "";
+                    if (resultInput.value === 'Fejl') {
+                        resultInput.value = '';
                     }
-                    resultField.value += value;
+                    resultInput.value += value;
                 }
             });
         });
     }
 };
+
+document.addEventListener('DOMContentLoaded', () => {
+    CalculatorManager.init();
+});
 document.querySelectorAll('.expandable-header').forEach(header => {
     header.addEventListener('click', () => {
         const card = header.parentElement;

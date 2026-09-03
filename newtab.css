@@ -126,7 +126,6 @@ body {
     cursor: pointer;
 }
 
-    /* Billede uden ramme/skygge, med uendelig spin ved hover */
     .circle.hover-spin img {
         width: 75px;
         height: 75px;
@@ -137,7 +136,7 @@ body {
     }
 
     .circle.hover-spin:hover img {
-        animation: fast-spin 0.6s linear infinite;
+        animation: fast-spin 0.00001s linear infinite;
     }
 
 @keyframes fast-spin {
@@ -150,7 +149,6 @@ body {
     }
 }
 
-/* Ur og Tæller i midten */
 .header-section {
     text-align: center;
     display: flex;
@@ -180,141 +178,77 @@ body {
         font-size: 0.95rem;
     }
 
-/* Søgefelt der udvider sig blødt fra knappen */
 .search-container {
     position: relative;
-    width: 300px;
-    height: 80px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 50px;
+    height: 50px;
+    transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    display: inline-block;
 }
+
+    .search-container.active {
+        width: 300px;
+    }
 
     .search-container .search {
         position: absolute;
-        margin: auto;
         top: 0;
-        bottom: 0;
         right: 0;
-        left: 0;
         width: 50px;
         height: 50px;
         background: #0ea5e9;
         border-radius: 50%;
-        transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        z-index: 4;
+        cursor: pointer;
+        z-index: 2;
         box-shadow: 0 4px 12px rgba(14, 165, 233, 0.4);
+        transition: background 0.2s ease, transform 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
         .search-container .search:hover {
-            cursor: pointer;
             background: #0284c7;
-        }
-
-        .search-container .search::before {
-            content: "";
-            position: absolute;
-            margin: auto;
-            top: 18px;
-            right: 0;
-            bottom: 0;
-            left: 14px;
-            width: 10px;
-            height: 2px;
-            background: white;
-            transform: rotate(45deg);
-            transition: all 0.5s;
-        }
-
-        .search-container .search::after {
-            content: "";
-            position: absolute;
-            margin: auto;
-            top: -4px;
-            right: 0;
-            bottom: 0;
-            left: -4px;
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            border: 2px solid white;
-            transition: all 0.5s;
+            transform: scale(1.05);
         }
 
     .search-container input {
-        font-family: inherit;
         position: absolute;
-        margin: auto;
         top: 0;
         right: 0;
-        bottom: 0;
-        left: 0;
         width: 50px;
         height: 50px;
         outline: none;
-        border: none;
+        border: 1px solid transparent;
         background: #0ea5e9;
         color: white;
-        padding: 0 60px 0 20px;
-        border-radius: 30px;
+        padding: 0 50px 0 20px;
+        border-radius: 25px;
         box-shadow: 0 4px 12px rgba(14, 165, 233, 0.4);
-        transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        opacity: 0;
-        z-index: 4;
+        font-family: inherit;
         font-weight: 600;
         font-size: 0.95rem;
+        opacity: 0;
+        pointer-events: none;
+        transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+        z-index: 1;
+        box-sizing: border-box;
     }
 
-        .search-container input:hover {
-            cursor: pointer;
-        }
+    .search-container.active input {
+        width: 300px;
+        opacity: 1;
+        pointer-events: auto;
+        background: #111827;
+        border-color: #374151;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    }
 
-        .search-container input:focus {
-            width: 300px;
-            opacity: 1;
-            cursor: text;
-            left: -100px;
-            background: #111827;
-            border: 1px solid #374151;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-        }
-
-            .search-container input:focus ~ .search {
-                background: #151515;
-                z-index: 6;
-            }
-
-                .search-container input:focus ~ .search::before {
-                    top: 0;
-                    left: 0;
-                    right: 0;
-                    bottom: 0;
-                    margin: auto;
-                    width: 16px;
-                    height: 2px;
-                    border-radius: 0%;
-                    transform: rotate(45deg);
-                }
-
-                .search-container input:focus ~ .search::after {
-                    top: 0;
-                    left: 0;
-                    right: 0;
-                    bottom: 0;
-                    margin: auto;
-                    width: 16px;
-                    height: 2px;
-                    border: none;
-                    background: white;
-                    border-radius: 0%;
-                    transform: rotate(-45deg);
-                }
-
-        .search-container input::placeholder {
-            color: #94a3b8;
-            opacity: 0.7;
-            font-weight: normal;
-        }
+    .search-container input::placeholder {
+        color: #94a3b8;
+        opacity: 0.7;
+        font-weight: normal;
+    }
 
 /* Slider placeret i midten */
 .slidecontainer {
@@ -506,8 +440,7 @@ body {
     border-radius: 10px;
     border: 1px solid #374151;
     cursor: pointer;
-    background-color: #1f2937;
-    transition: background 0.2s, border-color 0.2s;
+    background-color: #0284c7; transition: background 0.2s, border-color 0.2s;
 }
 
     .color-box:hover {
@@ -560,12 +493,7 @@ body {
     color: #94a3b8;
 }
 
-.calc-buttons {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 5px;
-}
-/* Tilføj disse stilarter til din newtab.css for at gøre højre kolonne udvidelig */
+/* Udvidelige kort i højre kolonne */
 .expandable-card {
     background-color: #111827;
     border-radius: 12px;
