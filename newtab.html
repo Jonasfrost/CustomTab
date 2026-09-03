@@ -78,31 +78,67 @@
         <input type="text" placeholder="Search..." id="Search" class="search-input hidden">
       </div>
 
-    </div> <!-- <-- HER LUKKES MIDTERSTE KOLONNE KORREKT NU -->
-
-    <!-- HØJRE KOLONNE (Simon Says Spil & Farveboks) -->
-    <div class="right-column">
-      <div class="card memory-card">
-        <h3>Simon Says</h3>
-        <p id="simon-status"></p>
-        <div id="simon-grid" class="simon-grid">
-          <div class="simon-tile" data-index="0"></div>
-          <div class="simon-tile" data-index="1"></div>
-          <div class="simon-tile" data-index="2"></div>
-          <div class="simon-tile" data-index="3"></div>
-          <div class="simon-tile" data-index="4"></div>
-          <div class="simon-tile" data-index="5"></div>
-          <div class="simon-tile" data-index="6"></div>
-          <div class="simon-tile" data-index="7"></div>
-          <div class="simon-tile" data-index="8"></div>
-        </div>
-        <button id="start-simon">Start Spil</button>
-      </div>
-
-      <button id="color-box" class="color-box"></button>
     </div>
 
+    <!-- HØJRE KOLONNE (Simon Says, Lommeregner & Farveboks) -->
+    <!-- Udskift højre kolonne i din HTML med dette -->
+<div class="right-column">
+  
+  <!-- Simon Says (Udvidelig) -->
+  <div class="expandable-card memory-card">
+    <div class="expandable-header">Simon Says</div>
+    <div class="expandable-content">
+      <p id="simon-status"></p>
+      <div id="simon-grid" class="simon-grid">
+        <div class="simon-tile" data-index="0"></div>
+        <div class="simon-tile" data-index="1"></div>
+        <div class="simon-tile" data-index="2"></div>
+        <div class="simon-tile" data-index="3"></div>
+        <div class="simon-tile" data-index="4"></div>
+        <div class="simon-tile" data-index="5"></div>
+        <div class="simon-tile" data-index="6"></div>
+        <div class="simon-tile" data-index="7"></div>
+        <div class="simon-tile" data-index="8"></div>
+      </div>
+      <button id="start-simon">Start Spil</button>
+    </div>
   </div>
+
+  <!-- Lommeregner (Udvidelig) -->
+  <div class="expandable-card calculator" id="calcu">
+    <div class="expandable-header">Lommeregner</div>
+    <div class="expandable-content">
+      <input type="text" id="result" readonly style="width: 100%; height: 40px; background: #1f2937; border: 1px solid #374151; color: white; border-radius: 6px; text-align: right; padding: 5px 10px; font-size: 1.1rem; margin-bottom: 10px; box-sizing: border-box;">
+      <div class="calc-buttons" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px;">
+        <button type="button" class="check" style="padding: 10px; font-size: 0.9rem;">1</button>
+        <button type="button" class="check" style="padding: 10px; font-size: 0.9rem;">2</button>
+        <button type="button" class="check" style="padding: 10px; font-size: 0.9rem;">3</button>
+        <button type="button" class="check" style="padding: 10px; font-size: 0.9rem;">c</button>
+        <button type="button" class="check" style="padding: 10px; font-size: 0.9rem;">4</button>
+        <button type="button" class="check" style="padding: 10px; font-size: 0.9rem;">5</button>
+        <button type="button" class="check" style="padding: 10px; font-size: 0.9rem;">6</button>
+        <button type="button" class="check" style="padding: 10px; font-size: 0.9rem;">/</button>
+        <button type="button" class="check" style="padding: 10px; font-size: 0.9rem;">7</button>
+        <button type="button" class="check" style="padding: 10px; font-size: 0.9rem;">8</button>
+        <button type="button" class="check" style="padding: 10px; font-size: 0.9rem;">9</button>
+        <button type="button" class="check" style="padding: 10px; font-size: 0.9rem;">*</button>
+        <button type="button" class="check" style="padding: 10px; font-size: 0.9rem;">0</button>
+        <button type="button" class="check" style="padding: 10px; font-size: 0.9rem;">.</button>
+        <button type="button" class="check" style="padding: 10px; font-size: 0.9rem;">=</button>
+        <button type="button" class="check" style="padding: 10px; font-size: 0.9rem;">-</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Farveboks (Udvidelig) -->
+  <div class="expandable-card">
+    <div class="expandable-header">Farveboks</div>
+    <div class="expandable-content">
+      <button id="color-box" class="color-box"></button>
+    </div>
+  </div>
+
+</div>
 
   <!-- Modal -->
   <div id="day-modal" class="modal hidden">

@@ -14,6 +14,7 @@ const App = {
         TaskManager.init();
         SearchManager.init();
         CalendarManager.init();
+        CalculatorManager.init();
     }
 };
 
@@ -411,3 +412,51 @@ const CalendarManager = {
         renderCalendar();
     }
 };
+
+const CalculatorManager = {
+    init() {
+        const resultField = document.getElementById("result");
+        const buttons = document.querySelectorAll(".calc-buttons button");
+
+        if (!resultField || buttons.length === 0) return;
+
+        buttons.forEach(button => {
+            button.addEventListener("click", () => {
+                const value = button.innerText;
+
+                if (value === "c" || value === "C") {
+                    resultField.value = "";
+                } else if (value === "=") {
+                    try {
+                        // Undgå at køre eval på tommefelter eller ugyldige tegn
+                        if (resultField.value.trim() === "") return;
+
+                        // Udregn resultatet sikkert
+                        let res = eval(resultField.value);
+
+                        // Håndterer hvis resultatet er ugyldigt (f.eks. ved division med 0)
+                        if (isNaN(res) || !isFinite(res)) {
+                            resultField.value = "Fejl";
+                        } else {
+                            resultField.value = res;
+                        }
+                    } catch (error) {
+                        resultField.value = "Fejl";
+                    }
+                } else {
+                    // Hvis skærmen viser "Fejl", rydder vi den før vi skriver videre
+                    if (resultField.value === "Fejl") {
+                        resultField.value = "";
+                    }
+                    resultField.value += value;
+                }
+            });
+        });
+    }
+};
+document.querySelectorAll('.expandable-header').forEach(header => {
+    header.addEventListener('click', () => {
+        const card = header.parentElement;
+        card.classList.toggle('active');
+    });
+});
