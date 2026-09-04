@@ -15,6 +15,7 @@ const App = {
         SearchManager.init();
         CalendarManager.init();
         CalculatorManager.init();
+        TicTacToeManager.init();
     }
 };
 
@@ -512,12 +513,177 @@ const CalculatorManager = {
     }
 };
 
+const TicTacToeManager = {
+    init() {
+        const cells = document.querySelectorAll('.ttt-cell');
+        const statusEl = document.getElementById('ttt-status');
+        const resetBtn = document.getElementById('ttt-reset');
+        const pvpBtn = document.getElementById('mode-pvp');
+        const pveBtn = document.getElementById('mode-pve');
+
+        if (cells.length === 0 || !statusEl || !resetBtn) return;
+
+        let board = ["", "", "", "", "", "", "", "", ""];
+        let currentPlayer = "X";
+        let isGameActive = true;
+        let vsBot = false;
+
+        const winningConditions = [
+            [0, 1, 2], [3, 4, 5], [6, 7, 8],
+            [0, 3, 6], [1, 4, 7], [2, 5, 8],
+            [0, 4, 8], [2, 4, 6]
+        ];
+
+        const handleCellClick = (e) => {
+            const cell = e.target;
+            const index = parseInt(cell.dataset.index);
+
+            if (board[index] !== "" || !isGameActive) return;
+
+            if (vsBot && currentPlayer === "O") return;
+
+            makeMove(index, currentPlayer);
+
+            if (isGameActive && vsBot && currentPlayer === "O") {
+                setTimeout(botMove, 300);
+            }
+        };
+
+        const makeMove = (index, player) => {
+            board[index] = player;
+            cells[index].textContent = player;
+            checkResult();
+        };
+
+        const botMove = () => {
+            if (!isGameActive) return;
+
+            const findWinningMove = (targetPlayer) => {
+                for (let i = 0; i < winningConditions.length; i++) {
+                    const [a, b, c] = winningConditions[i];
+                    let line = [board[a], board[b], board[c]];
+
+                    if (line.filter(val => val === targetPlayer).length === 2 && line.includes("")) {
+                        if (board[a] === "") return a;
+                        if (board[b] === "") return b;
+                        if (board[c] === "") return c;
+                    }
+                }
+                return null;
+            };
+
+            // Kan robotten vinde
+            let move = findWinningMove("O");
+
+            // Kan spilleren vinde
+            if (move === null) {
+                move = findWinningMove("X");
+            }
+
+            // Tag midten hvis ledig
+            if (move === null && board[4] === "") {
+                move = 4;
+            }
+
+            // Tag et tilfældigt ledigt felt
+            if (move === null) {
+                let emptyCells = [];
+                board.forEach((val, idx) => {
+                    if (val === "") emptyCells.push(idx);
+                });
+                if (emptyCells.length > 0) {
+                    move = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+                }
+            }
+
+            if (move !== null) {
+                makeMove(move, "O");
+            }
+        };
+
+        const checkResult = () => {
+            let roundWon = false;
+
+            for (let i = 0; i < winningConditions.length; i++) {
+                const [a, b, c] = winningConditions[i];
+                if (board[a] === "" || board[b] === "" || board[c] === "") continue;
+
+                if (board[a] === board[b] && board[b] === board[c]) {
+                    roundWon = true;
+                    break;
+                }
+            }
+
+            if (roundWon) {
+                statusEl.textContent = `Spiller ${currentPlayer} vandt!`;
+                isGameActive = false;
+                return;
+            }
+
+            let roundDraw = !board.includes("");
+            if (roundDraw) {
+                statusEl.textContent = `Uafgjort!`;
+                isGameActive = false;
+                return;
+            }
+
+            currentPlayer = currentPlayer === "X" ? "O" : "X";
+            statusEl.textContent = vsBot && currentPlayer === "O" ? "Robotten tænker" : `Spiller ${currentPlayer}'s tur`;
+        };
+
+        const resetGame = () => {
+            board = ["", "", "", "", "", "", "", "", ""];
+            isGameActive = true;
+            currentPlayer = "X";
+            statusEl.textContent = `Spiller ${currentPlayer}'s tur`;
+            cells.forEach(cell => cell.textContent = "");
+        };
+
+        // Skift til mod ven
+        pvpBtn.addEventListener('click', () => {
+            vsBot = false;
+            pvpBtn.style.background = "#374151";
+            pveBtn.style.background = "#1f2937";
+            resetGame();
+        });
+
+        // Skift til mod robot
+        pveBtn.addEventListener('click', () => {
+            vsBot = true;
+            pveBtn.style.background = "#374151";
+            pvpBtn.style.background = "#1f2937";
+            resetGame();
+        });
+
+        cells.forEach(cell => {
+            if (cell.dataset.listenerAttached === "true") return;
+            cell.dataset.listenerAttached = "true";
+            cell.addEventListener('click', handleCellClick);
+        });
+
+        resetBtn.addEventListener('click', resetGame);
+    }
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+    TicTacToeManager.init();
+});
+
 document.addEventListener('DOMContentLoaded', () => {
     CalculatorManager.init();
 });
+
 document.querySelectorAll('.expandable-header').forEach(header => {
     header.addEventListener('click', () => {
         const card = header.parentElement;
-        card.classList.toggle('active');
+        const isActive = card.classList.contains('active');
+
+        document.querySelectorAll('.expandable-card').forEach(c => {
+            c.classList.remove('active');
+        });
+
+        if (!isActive) {
+            card.classList.add('active');
+        }
     });
 });

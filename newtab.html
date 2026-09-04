@@ -80,7 +80,7 @@
 
     </div>
 
-    <!-- HØJRE KOLONNE (Simon Says, Lommeregner & Farveboks) -->
+    <!-- HØJRE KOLONNE (Simon Says, Lommeregner, Farveboks & Tic-Tac-Toe) -->
     <div class="right-column">
   
       <!-- Simon Says (Udvidelig) -->
@@ -135,6 +135,33 @@
         <div class="expandable-header">Farveboks</div>
         <div class="expandable-content">
           <button id="color-box" class="color-box"></button>
+        </div>
+      </div>
+
+      <!-- Tic-Tac-Toe (Udvidelig) -->
+      <div class="expandable-card" id="tictactoe-card">
+        <div class="expandable-header">Tic-Tac-Toe</div>
+        <div class="expandable-content">
+          <div id="ttt-mode-select" style="display: flex; gap: 5px; margin-bottom: 10px;">
+            <button type="button" id="mode-pvp" class="check" style="flex: 1; padding: 6px; cursor: pointer; background: #374151; color: white;">Mod Ven</button>
+            <button type="button" id="mode-pve" class="check" style="flex: 1; padding: 6px; cursor: pointer; background: #1f2937; color: white;">Mod Robot</button>
+          </div>
+
+          <p id="ttt-status" style="margin-bottom: 8px;">Spiller X's tur</p>
+          
+          <div id="ttt-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; margin-bottom: 10px;">
+            <button type="button" class="ttt-cell check" data-index="0" style="height: 50px; font-size: 1.5rem; font-weight: bold; cursor: pointer;"></button>
+            <button type="button" class="ttt-cell check" data-index="1" style="height: 50px; font-size: 1.5rem; font-weight: bold; cursor: pointer;"></button>
+            <button type="button" class="ttt-cell check" data-index="2" style="height: 50px; font-size: 1.5rem; font-weight: bold; cursor: pointer;"></button>
+            <button type="button" class="ttt-cell check" data-index="3" style="height: 50px; font-size: 1.5rem; font-weight: bold; cursor: pointer;"></button>
+            <button type="button" class="ttt-cell check" data-index="4" style="height: 50px; font-size: 1.5rem; font-weight: bold; cursor: pointer;"></button>
+            <button type="button" class="ttt-cell check" data-index="5" style="height: 50px; font-size: 1.5rem; font-weight: bold; cursor: pointer;"></button>
+            <button type="button" class="ttt-cell check" data-index="6" style="height: 50px; font-size: 1.5rem; font-weight: bold; cursor: pointer;"></button>
+            <button type="button" class="ttt-cell check" data-index="7" style="height: 50px; font-size: 1.5rem; font-weight: bold; cursor: pointer;"></button>
+            <button type="button" class="ttt-cell check" data-index="8" style="height: 50px; font-size: 1.5rem; font-weight: bold; cursor: pointer;"></button>
+          </div>
+          
+          <button id="ttt-reset" class="check" style="width: 100%; padding: 8px; cursor: pointer;">Nyt Spil</button>
         </div>
       </div>
 

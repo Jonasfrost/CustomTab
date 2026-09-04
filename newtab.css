@@ -1,3 +1,6 @@
+/* ==========================================
+   1. GENERELT SETUP & BODY
+   ========================================== */
 html, body {
     margin: 0;
     padding: 0;
@@ -15,7 +18,6 @@ body {
     justify-content: center;
 }
 
-/* Får hele layoutet til at strække sig ud over hele skærmen med luft imellem */
 .dashboard-layout {
     display: flex;
     justify-content: space-between;
@@ -26,35 +28,6 @@ body {
     box-sizing: border-box;
 }
 
-/* Venstre kolonne */
-.side-column {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    width: 320px;
-    flex-shrink: 0;
-}
-
-/* Midterkolonne (flyder ud og centrerer indholdet) */
-.center-column {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-    flex-grow: 1;
-    max-width: 600px;
-}
-
-/* Højre kolonne */
-.right-column {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    width: 320px;
-    flex-shrink: 0;
-}
-
-/* Generelt kort-design */
 .card {
     background-color: #111827;
     border-radius: 12px;
@@ -72,34 +45,84 @@ body {
         margin-bottom: 10px;
     }
 
-/* Lommeregner specifik styling */
-.calculator input#result {
-    width: 100%;
-    height: 42px;
-    background: #1f2937;
-    border: 1px solid #374151;
+/* Fælles knapper */
+.check, #start-simon, #add-task-btn, #save-note-btn {
+    background-color: #0ea5e9;
     color: white;
-    border-radius: 6px;
-    text-align: right;
-    padding: 5px 12px;
-    font-size: 1.2rem;
-    margin-bottom: 10px;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
+    transition: background 0.2s, transform 0.1s;
+    width: 100%;
     box-sizing: border-box;
-    outline: none;
 }
 
-.calc-buttons {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 6px;
-}
-
-    .calc-buttons button {
-        padding: 10px 0;
-        font-size: 0.95rem;
+    .check:hover, #start-simon:hover {
+        background-color: #0284c7;
+        transform: translateY(-1px);
     }
 
-/* Midtersektion: Simon Header og Billede */
+    .check:active, #start-simon:active, #add-task-btn:active, #save-note-btn:active {
+        transform: translateY(1px) scale(0.98);
+    }
+
+
+/* ==========================================
+   2. VENSTRE KOLONNE
+   ========================================== */
+.side-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 320px;
+    flex-shrink: 0;
+}
+
+/* Vejr detaljer */
+.weather-details {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.city-title {
+    margin: 0 0 5px 0;
+    font-size: 0.85rem;
+    color: #94a3b8;
+}
+
+/* Farveboks knap */
+.color-box {
+    width: 100%;
+    height: 45px;
+    border-radius: 10px;
+    border: 1px solid #374151;
+    cursor: pointer;
+    background-color: #0284c7;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+    .color-box:hover {
+        border-color: #4b5563;
+    }
+
+
+/* ==========================================
+   3. MIDTER KOLONNE & ELEMENTER
+   ========================================== */
+.center-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    flex-grow: 1;
+    max-width: 600px;
+}
+
+/* Simon Header og Billede */
 .hero-header {
     display: flex;
     align-items: center;
@@ -271,29 +294,49 @@ body {
     width: 100%;
 }
 
-/* Knapper */
-.check, #start-simon, #add-task-btn, #save-note-btn {
-    background-color: #0ea5e9;
-    color: white;
-    border: none;
-    padding: 10px 22px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 600;
-    box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
-    transition: background 0.2s, transform 0.1s;
-    width: 100%;
-    box-sizing: border-box;
+
+/* ==========================================
+   4. HØJRE KOLONNE
+   ========================================== */
+.right-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 320px;
+    flex-shrink: 0;
 }
 
-    .check:hover, #start-simon:hover {
-        background-color: #0284c7;
-        transform: translateY(-1px);
+/* Lommeregner i højre kolonne */
+.calculator input#result {
+    width: 100%;
+    height: 42px;
+    background: #1f2937;
+    border: 1px solid #374151;
+    color: white;
+    border-radius: 6px;
+    text-align: right;
+    padding: 5px 12px;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    outline: none;
+}
+
+.calc-buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+}
+
+    .calc-buttons button {
+        padding: 10px 0;
+        font-size: 0.95rem;
     }
 
-    .check:active, #start-simon:active, #add-task-btn:active, #save-note-btn:active {
-        transform: translateY(1px) scale(0.98);
-    }
+
+/* ==========================================
+   5. WIDGETS & MODALER (Fælles komponenter)
+   ========================================== */
 
 /* Simon Says Grid */
 .simon-grid {
@@ -420,34 +463,7 @@ body {
     border-bottom: 2px solid #f59e0b;
 }
 
-/* Vejr detaljer */
-.weather-details {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.city-title {
-    margin: 0 0 5px 0;
-    font-size: 0.85rem;
-    color: #94a3b8;
-}
-
-/* Farveboks knap */
-.color-box {
-    width: 100%;
-    height: 45px;
-    border-radius: 10px;
-    border: 1px solid #374151;
-    cursor: pointer;
-    background-color: #0284c7; transition: background 0.2s, border-color 0.2s;
-}
-
-    .color-box:hover {
-        border-color: #4b5563;
-    }
-
-/* Modal */
+/* Kalender popup modal */
 .modal {
     position: fixed;
     top: 0;
@@ -458,6 +474,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 1000;
 }
 
     .modal.hidden {
@@ -493,7 +510,7 @@ body {
     color: #94a3b8;
 }
 
-/* Udvidelige kort i højre kolonne */
+/* Udvidelige kort */
 .expandable-card {
     background-color: #111827;
     border-radius: 12px;
